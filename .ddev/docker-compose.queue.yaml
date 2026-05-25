@@ -1,0 +1,30 @@
+services:
+  queue:
+    build:
+      context: ../docker/php
+    restart: unless-stopped
+    working_dir: /var/www/backend
+    command: ["sh", "-c", "until php artisan migrate --force > /dev/null 2>&1; do echo 'Waiting for DB...'; sleep 3; done && php artisan queue:work --sleep=3 --tries=3 --max-time=3600"]
+    healthcheck:
+      disable: true
+    volumes:
+      - ../backend:/var/www/backend
+    environment:
+      APP_ENV: local
+      APP_URL: https://johnsgarage.ddev.site:8443
+      FRONTEND_URL: https://frontend.johnsgarage.ddev.site:8443
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: db
+      DB_USERNAME: db
+      DB_PASSWORD: db
+      DB_SOCKET: ""
+      QUEUE_CONNECTION: database
+      CACHE_STORE: database
+      MAIL_MAILER: smtp
+      MAIL_HOST: mailpit
+      MAIL_PORT: 1025
+      MAIL_SCHEME: ""
+      MAIL_FROM_ADDRESS: "noreply@johnsgarage.sk"
+      MAIL_FROM_NAME: "John's Garage"

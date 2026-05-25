@@ -1,0 +1,32 @@
+name: campingforyou
+type: laravel
+docroot: backend/public
+php_version: "8.4"
+webserver_type: nginx-fpm
+database:
+  type: mariadb
+  version: "11.4"
+nodejs_version: "22"
+additional_fqdns:
+  - frontend.campingforyou.ddev.site
+
+web_environment:
+  - DB_DATABASE=db
+  - DB_USERNAME=db
+  - DB_PASSWORD=db
+  - APP_URL=https://campingforyou.ddev.site:8443
+  - FRONTEND_URL=https://frontend.campingforyou.ddev.site:8443
+  - SANCTUM_STATEFUL_DOMAINS=frontend.campingforyou.ddev.site:8443
+  - SESSION_DOMAIN=.campingforyou.ddev.site
+  - MAIL_HOST=mailpit
+  - MAIL_PORT=1025
+  - MAIL_MAILER=smtp
+  - MAIL_SCHEME=
+
+hooks:
+  post-start:
+    - exec-host: ddev exec --user=root chmod -R 777 /var/www/html/backend/storage /var/www/html/backend/bootstrap/cache
+    - exec-host: docker cp /home/miro/campingforyou/.ddev/traefik/config/campingforyou.yaml ddev-router:/mnt/ddev-global-cache/traefik/config/campingforyou.yaml
+    - exec: "composer install --no-interaction --working-dir /var/www/html/backend"
+    - exec: "php /var/www/html/backend/artisan config:clear"
+    - exec: "php /var/www/html/backend/artisan migrate --force"

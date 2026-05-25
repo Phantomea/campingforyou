@@ -1,0 +1,67 @@
+tls:
+  certificates:
+    - certFile: /mnt/ddev-global-cache/traefik/certs/campingforyou.crt
+      keyFile: /mnt/ddev-global-cache/traefik/certs/campingforyou.key
+
+http:
+  routers:
+    # ─── Backend (campingforyou.ddev.site) ─────────────────────────────────────
+    campingforyou-http:
+      entrypoints:
+        - http-33000
+      rule: "Host(`campingforyou.ddev.site`)"
+      service: "campingforyou"
+      tls: false
+
+    campingforyou-https:
+      entrypoints:
+        - http-8443
+      rule: "Host(`campingforyou.ddev.site`)"
+      service: "campingforyou"
+      tls: true
+
+    # ─── Frontend (frontend.campingforyou.ddev.site) ────────────────────────────
+    campingforyou-frontend-http:
+      entrypoints:
+        - http-33000
+      rule: "Host(`frontend.campingforyou.ddev.site`)"
+      service: "campingforyou-frontend"
+      tls: false
+
+    campingforyou-frontend-https:
+      entrypoints:
+        - http-8443
+      rule: "Host(`frontend.campingforyou.ddev.site`)"
+      service: "campingforyou-frontend"
+      tls: true
+
+    # ─── Mailpit (mailpit.campingforyou.ddev.site) ──────────────────────────────
+    campingforyou-mailpit-http:
+      entrypoints:
+        - http-33000
+      rule: "Host(`mailpit.campingforyou.ddev.site`)"
+      service: "campingforyou-mailpit"
+      tls: false
+
+    campingforyou-mailpit-https:
+      entrypoints:
+        - http-8443
+      rule: "Host(`mailpit.campingforyou.ddev.site`)"
+      service: "campingforyou-mailpit"
+      tls: true
+
+  services:
+    campingforyou:
+      loadbalancer:
+        servers:
+          - url: "http://ddev-campingforyou-web:80"
+
+    campingforyou-frontend:
+      loadbalancer:
+        servers:
+          - url: "http://ddev-campingforyou-frontend-1:9000"
+
+    campingforyou-mailpit:
+      loadbalancer:
+        servers:
+          - url: "http://ddev-campingforyou-mailpit-1:8025"

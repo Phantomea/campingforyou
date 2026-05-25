@@ -1,0 +1,26 @@
+FROM dunglas/frankenphp:1-php8.4-alpine
+
+RUN install-php-extensions \
+    pdo_mysql \
+    mbstring \
+    zip \
+    bcmath \
+    opcache \
+    pcntl
+
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www/backend
+
+COPY backend/ .
+COPY frontend/public/gallery /var/www/gallery
+
+RUN composer install --no-dev --optimize-autoloader --no-interaction
+
+RUN mkdir -p storage/logs storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache \
+    && chown -R www-data:www-data storage bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache
+
+EXPOSE 8000
+
+CMD ["php", "artisan", "octane:start", "--server=frankenphp", "--host=0.0.0.0", "--port=8000"]

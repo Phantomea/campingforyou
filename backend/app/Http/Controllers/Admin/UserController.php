@@ -1,0 +1,73 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
+
+class UserController extends Controller
+{
+    public function index(): JsonResponse
+    {
+        $users = User::all();
+
+        return response()->json($users);
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users',
+            'password' => ['required', Password::defaults()],
+            'role' => 'required|in:owner,super_admin',
+        ]);
+
+        $validated['password'] = Hash::make($validated['password']);
+
+        $user = User::create($validated);
+
+        return response()->json($user, 201);
+    }
+
+    public function show(User $user): JsonResponse
+    {
+        return response()->json($user);
+    }
+
+    public function update(Request $request, User $user): JsonResponse
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => ['nullable', Password::defaults()],
+            'role' => 'required|in:owner,super_admin',
+        ]);
+
+        if (!empty($validated['password'])) {
+            $validated['password'] = Hash::make($validated['password']);
+        } else {
+            unset($validated['password']);
+        }
+
+        $user->update($validated);
+
+        return response()->json($user);
+    }
+
+    public function destroy(User $user): JsonResponse
+    {
+        // Prevent deleting yourself
+        if ($user->id === auth()->id()) {
+            return response()->json(['message' => 'Nemôžete vymazať sami seba'], 403);
+        }
+
+        $user->delete();
+
+        return response()->json(['message' => 'Používateľ bol vymazaný']);
+    }
+}

@@ -1,0 +1,126 @@
+services:
+
+  # ─── MariaDB ──────────────────────────────────────────────────────────────
+  db:
+    image: mariadb:11
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-secret}
+      MARIADB_DATABASE: ${DB_DATABASE:-campingforyou}
+      MARIADB_USER: ${DB_USERNAME:-campingforyou}
+      MARIADB_PASSWORD: ${DB_PASSWORD:-secret}
+    volumes:
+      - db_data_dev:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─── FrankenPHP + Octane (Laravel backend) ───────────────────────────────
+  backend:
+    build:
+      context: docker/php
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backend:/var/www/backend
+    ports:
+      - "8000:8000"
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_KEY: ${APP_KEY}
+      APP_URL: http://localhost:8000
+      FRONTEND_URL: http://localhost:3000
+      SANCTUM_STATEFUL_DOMAINS: localhost:3000
+      SESSION_DOMAIN: localhost
+      OCTANE_SERVER: frankenphp
+      SERVER_NAME: ":8000"
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: ${DB_DATABASE:-campingforyou}
+      DB_USERNAME: ${DB_USERNAME:-campingforyou}
+      DB_PASSWORD: ${DB_PASSWORD:-secret}
+      DB_SOCKET: ""
+      QUEUE_CONNECTION: database
+      CACHE_STORE: database
+      MAIL_MAILER: smtp
+      MAIL_HOST: mailpit
+      MAIL_PORT: 1025
+      MAIL_FROM_ADDRESS: "noreply@campingforyou.sk"
+      MAIL_FROM_NAME: "CampingForYou"
+
+  # ─── Queue worker ────────────────────────────────────────────────────────
+  queue:
+    build:
+      context: docker/php
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    command: ["sh", "-c", "until php artisan migrate --force > /dev/null 2>&1; do echo 'Waiting for DB...'; sleep 3; done && php artisan queue:work --sleep=3 --tries=3"]
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backend:/var/www/backend
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_KEY: ${APP_KEY}
+      APP_URL: http://localhost:8000
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: ${DB_DATABASE:-campingforyou}
+      DB_USERNAME: ${DB_USERNAME:-campingforyou}
+      DB_PASSWORD: ${DB_PASSWORD:-secret}
+      DB_SOCKET: ""
+      QUEUE_CONNECTION: database
+      CACHE_STORE: database
+      MAIL_MAILER: smtp
+      MAIL_HOST: mailpit
+      MAIL_PORT: 1025
+      MAIL_FROM_ADDRESS: "noreply@campingforyou.sk"
+      MAIL_FROM_NAME: "CampingForYou"
+
+  # ─── Adminer (databázový UI) ─────────────────────────────────────────────
+  adminer:
+    image: adminer:latest
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "8081:8080"
+
+  # ─── Mailpit (zachytávanie emailov v dev) ────────────────────────────────
+  mailpit:
+    image: axllent/mailpit:latest
+    restart: unless-stopped
+    ports:
+      - "8025:8025"   # web UI
+      - "1025:1025"   # SMTP
+
+  # ─── Nuxt frontend ────────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: frontend
+      dockerfile: ../docker/node/Dockerfile
+    restart: unless-stopped
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.nuxt
+    ports:
+      - "3000:3000"
+    environment:
+      NUXT_PUBLIC_API_BASE: http://localhost:8000/api
+      NUXT_PUBLIC_BACKEND_URL: http://localhost:8000
+
+volumes:
+  db_data_dev:
