@@ -3,7 +3,7 @@
     <div class="page-header">
       <div class="container">
         <h1>Galéria</h1>
-        <p class="page-header-sub">Pozrite sa do nášho servisu</p>
+        <p class="page-header-sub">Pozrite sa na naše karavany</p>
       </div>
     </div>
 
@@ -28,7 +28,7 @@
             class="gallery-item"
             @click="openLightbox(index)"
           >
-            <img :src="image.url" :alt="`Galéria John's Garage – foto ${index + 1}`" loading="lazy" />
+            <img :src="image.url" :alt="`Galéria CampingForYou – foto ${index + 1}`" loading="lazy" />
             <div class="gallery-item-overlay">
               <i class="bi bi-zoom-in"></i>
             </div>
@@ -75,13 +75,13 @@ const { data: images, pending } = await useAsyncData(
 )
 
 useSeoMeta({
-  title: "Galéria | John's Garage",
-  description: "Fotogaléria autoservisu John's Garage — pozrite sa do nášho servisu.",
-  ogTitle: "Galéria | John's Garage",
-  ogDescription: "Fotografie z autoservisu John's Garage.",
+  title: "Galéria | CampingForYou",
+  description: 'Fotogaléria karavanov CampingForYou — pozrite sa na naše karavany.',
+  ogTitle: 'Galéria | CampingForYou',
+  ogDescription: 'Fotografie karavanov CampingForYou.',
   ogType: 'website',
   ogUrl: url.href,
-  ogSiteName: "John's Garage",
+  ogSiteName: "CampingForYou",
 })
 
 useHead({
@@ -91,8 +91,8 @@ useHead({
     innerHTML: JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'ImageGallery',
-      name: "Galéria John's Garage",
-      description: 'Fotogaléria autoservisu.',
+      name: 'Galéria CampingForYou',
+      description: 'Fotogaléria karavanov CampingForYou.',
       url: url.href,
       image: (images.value || []).map(img => img.url),
     }),

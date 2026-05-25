@@ -81,6 +81,6 @@ const handleLogin = async () => {
 }
 
 useHead({
-  title: "Prihlásenie | John's Garage Admin",
+  title: 'Prihlásenie | CampingForYou Admin',
 })
 </script>

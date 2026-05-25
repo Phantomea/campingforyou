@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-John's Garage - webová stránka autoservisu s oddelenými frontend a backend časťami v monorepo štruktúre.
+CampingForYou - webová stránka prenájmu karavanov s oddelenými frontend a backend časťami v monorepo štruktúre.
 
 - **Frontend:** Nuxt 4 (Vue 3, TypeScript)
 - **Backend:** Laravel 12 (PHP 8.2+)
@@ -14,7 +14,7 @@ John's Garage - webová stránka autoservisu s oddelenými frontend a backend č
 ## Štruktúra projektu
 
 ```
-johnsgarage/
+campingforyou/
 ├── frontend/          # Nuxt 4 aplikácia
 │   ├── app/pages/     # Stránky (file-based routing)
 │   ├── components/    # Vue komponenty
@@ -62,7 +62,7 @@ cd frontend && npm run generate
 
 ### Prvé spustenie
 
-1. Vytvoriť databázu `johnsgarage` v MariaDB/MySQL
+1. Vytvoriť databázu `campingforyou` v MariaDB/MySQL
 2. Nakonfigurovať `backend/.env` (DB credentials)
 3. `cd backend && php artisan migrate --seed`
 4. Spustiť backend: `cd backend && php artisan serve` (port 8000)
@@ -70,13 +70,13 @@ cd frontend && npm run generate
 
 ## Používateľské role
 
-- **owner** - Majiteľ autoservisu (správa obsahu)
+- **owner** - Majiteľ firmy (správa obsahu)
 - **super_admin** - Vývojár (plný prístup)
 
 ## Testovacie účty (po seedovaní)
 
-- Super Admin: `admin@johnsgarage.sk` / `password`
-- Owner: `john@johnsgarage.sk` / `password`
+- Super Admin: `admin@campingforyou.sk` / `password`
+- Owner: `info@campingforyou.sk` / `password`
 
 ## API Endpointy
 

@@ -2,7 +2,7 @@
   <aside class="admin-sidebar d-flex flex-column">
     <div class="p-3 border-bottom border-secondary d-flex align-items-center gap-2">
       <NuxtLink :to="localePath({ name: 'index' })" class="text-white text-decoration-none fw-bold">
-        John's Garage
+        CampingForYou
       </NuxtLink>
       <span class="badge bg-primary small">Admin</span>
     </div>
@@ -12,8 +12,8 @@
         Dashboard
       </NuxtLink>
       <NuxtLink :to="localePath({ name: 'admin-services' })" class="nav-link" :class="{ active: route.name === 'admin-services' }">
-        <i class="bi bi-tools me-2"></i>
-        Služby
+        <i class="bi bi-house-door me-2"></i>
+        Karavany
       </NuxtLink>
       <button
         class="nav-link d-flex justify-content-between align-items-center w-100 border-0 bg-transparent text-start"

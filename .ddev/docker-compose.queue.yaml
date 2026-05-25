@@ -11,8 +11,8 @@ services:
       - ../backend:/var/www/backend
     environment:
       APP_ENV: local
-      APP_URL: https://johnsgarage.ddev.site:8443
-      FRONTEND_URL: https://frontend.johnsgarage.ddev.site:8443
+      APP_URL: https://campingforyou.ddev.site:8443
+      FRONTEND_URL: https://frontend.campingforyou.ddev.site:8443
       DB_CONNECTION: mysql
       DB_HOST: db
       DB_PORT: 3306
@@ -26,5 +26,5 @@ services:
       MAIL_HOST: mailpit
       MAIL_PORT: 1025
       MAIL_SCHEME: ""
-      MAIL_FROM_ADDRESS: "noreply@johnsgarage.sk"
-      MAIL_FROM_NAME: "John's Garage"
+      MAIL_FROM_ADDRESS: "noreply@campingforyou.sk"
+      MAIL_FROM_NAME: "CampingForYou"

@@ -18,7 +18,7 @@ labels:
 
 ### Pravidlá
 
-- **Unikátne Traefik service mená** pre každý projekt — nikdy len `backend`/`frontend`, vždy s prefixom projektu (`johnsgarage-backend`, `buildz-backend`)
+- **Unikátne Traefik service mená** pre každý projekt — nikdy len `backend`/`frontend`, vždy s prefixom projektu (`campingforyou-backend`, `buildz-backend`)
 - **Žiadne TLS/certresolver labels** — Cloudflare rieši SSL
 - `NUXT_API_BASE_SERVER: http://backend:8000/api` — SSR volania idú cez Docker sieť, nie cez verejnú doménu
 - MariaDB healthcheck vždy so `start_period: 60s`
