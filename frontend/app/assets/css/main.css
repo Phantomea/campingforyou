@@ -1,4 +1,13 @@
-/* Bootstrap overrides and custom styles for John's Garage */
+/* Custom styles for CampingForYou */
+
+/* Required field asterisk — label pred required inputom/select/textarea */
+.form-label:has(+ input[required],
+               + select[required],
+               + textarea[required])::after,
+.form-label.required::after {
+  content: ' *';
+  color: #dc3545;
+}
 
 :root {
   --jg-primary: #8B1A1A;
@@ -8,17 +17,10 @@
   --jg-dark-2: #2c2c2c;
   --jg-light: #f8f4ec;
   --jg-text-muted: #6c757d;
-
-  /* Bootstrap overrides */
-  --bs-primary: #8B1A1A;
-  --bs-primary-rgb: 139, 26, 26;
-  --bs-link-color: #8B1A1A;
-  --bs-link-hover-color: #6E1515;
 }
 
 /* ===== TYPOGRAPHY ===== */
 body {
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   color: #333;
 }
 
@@ -55,13 +57,14 @@ body {
 
 /* ===== MAIN NAVIGATION ===== */
 .main-navbar {
-  background-color: var(--jg-primary);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  transition: box-shadow 0.3s;
+  background-color: transparent;
+  transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-.main-navbar.sticky-top {
-  box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+.main-navbar.scrolled {
+  background-color: rgba(0, 0, 0, 0.92);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.35);
+  backdrop-filter: blur(6px);
 }
 
 .main-navbar .navbar-brand img {
@@ -110,16 +113,26 @@ body {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255%2C255%2C255%2C0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
 }
 
+/* ===== LAYOUT ===== */
+:root {
+  --navbar-height: 80px;
+}
+
+.main-content {
+  padding-top: var(--navbar-height);
+}
+
 /* ===== HERO SECTION ===== */
 .hero {
-  min-height: 50vh;
+  min-height: 100vh;
+  margin-top: calc(-1 * var(--navbar-height));
   background: linear-gradient(
     to bottom,
-    rgba(20, 10, 10, 0.88) 0%,
-    rgba(20, 10, 10, 0.80) 60%,
-    rgba(20, 10, 10, 0.90) 100%
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.85) 60%,
+    rgba(0, 0, 0, 0.95) 100%
   ),
-  url('/hero-bg.jpg') center center / cover no-repeat;
+  url('/hero-bg.webp') center center / cover no-repeat;
   background-color: var(--jg-dark);
   display: flex;
   align-items: center;
@@ -148,33 +161,7 @@ body {
   margin-bottom: 1.25rem;
 }
 
-.hero .hero-lead {
-  font-size: 1.125rem;
-  opacity: 0.85;
-  max-width: 520px;
-  margin-bottom: 2rem;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
-}
 
-.btn {
-  font-weight: 600;
-  padding: 8px 14px;
-}
-
-.btn-lg {
-  padding: 12px 20px;
-}
-
-.btn-primary {
-  background-color: var(--jg-primary);
-  border-color: var(--jg-primary);
-}
-
-.btn-primary:hover,
-.btn-primary:focus {
-  background-color: var(--jg-primary-dark);
-  border-color: var(--jg-primary-dark);
-}
 
 .btn-outline-light:hover {
   color: #333 !important;
@@ -509,10 +496,15 @@ body {
 }
 
 /* ===== ADMIN ===== */
+.admin-wrapper {
+  min-height: 100vh;
+}
+
 .admin-sidebar {
   width: 250px;
   min-height: 100vh;
   background-color: #1e293b;
+  flex-shrink: 0;
 }
 
 .admin-sidebar .nav-link {
@@ -536,6 +528,26 @@ body {
 .admin-content {
   flex: 1;
   min-width: 0;
+}
+
+@media (min-width: 992px) {
+  .admin-wrapper {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .admin-sidebar {
+    height: 100vh;
+    min-height: unset;
+    overflow-y: auto;
+    position: sticky;
+    top: 0;
+  }
+
+  .admin-content {
+    height: 100vh;
+    overflow-y: auto;
+  }
 }
 
 /* ===== ROLE BADGES ===== */
@@ -695,11 +707,6 @@ body {
   grid-template-columns: repeat(4, 1fr);
 }
 
-@media (min-width: 1200px) {
-  .hero {
-    min-height: 88vh;
-  }
-}
 
 @media (max-width: 991px) {
   .gallery-grid--home {
@@ -713,3 +720,27 @@ body {
   }
 }
 
+.perex {
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+.btn-primary,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary:focus-visible {
+  color: #fff !important;
+}
+
+/* ===== CARAVAN CARD ===== */
+.caravan-card--selectable { cursor: pointer; }
+.caravan-card--selectable:hover,
+.caravan-card--selected {
+  border-color: var(--bs-primary) !important;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+.caravan-card--selected {
+  box-shadow: 0 0 0 3px rgba(0, 181, 131, 0.2), 0 6px 24px rgba(0, 0, 0, 0.15);
+}

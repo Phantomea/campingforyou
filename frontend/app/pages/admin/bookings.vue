@@ -6,7 +6,7 @@
         <div class="card text-center border-0 bg-warning bg-opacity-10">
           <div class="card-body py-3">
             <div class="h3 fw-bold text-warning mb-0">{{ stats.pending }}</div>
-            <div class="small text-muted">Čakajúce</div>
+            <div class="small text-muted">Čekající</div>
           </div>
         </div>
       </div>
@@ -14,7 +14,7 @@
         <div class="card text-center border-0 bg-success bg-opacity-10">
           <div class="card-body py-3">
             <div class="h3 fw-bold text-success mb-0">{{ stats.confirmed }}</div>
-            <div class="small text-muted">Potvrdené</div>
+            <div class="small text-muted">Potvrzené</div>
           </div>
         </div>
       </div>
@@ -22,7 +22,7 @@
         <div class="card text-center border-0 bg-primary bg-opacity-10">
           <div class="card-body py-3">
             <div class="h3 fw-bold mb-0" style="color: var(--jg-primary)">{{ stats.today }}</div>
-            <div class="small text-muted">Práve prebieha</div>
+            <div class="small text-muted">Právě probíhá</div>
           </div>
         </div>
       </div>
@@ -47,7 +47,7 @@
               type="date"
               class="form-control form-control-sm"
               style="width: 160px"
-              title="Filtrovať podľa dátumu (zobrazí rezervácie, ktoré v daný deň prebiehajú)"
+              title="Filtrovat podle data (zobrazí rezervace, které v daný den probíhají)"
               @change="loadBookings"
             />
           </div>
@@ -61,12 +61,12 @@
         <table class="table table-hover mb-0 align-middle">
           <thead class="table-light">
             <tr>
-              <th>Termín prenájmu</th>
+              <th>Termín pronájmu</th>
               <th>Zákazník</th>
               <th>Karavan</th>
-              <th>Dni / Cena</th>
+              <th>Dny / Cena</th>
               <th>Stav</th>
-              <th class="text-end">Akcie</th>
+              <th class="text-end">Akce</th>
             </tr>
           </thead>
           <tbody>
@@ -94,7 +94,7 @@
               <td class="small">{{ booking.service?.title }}</td>
               <td class="small">
                 <div v-if="booking.total_days">{{ booking.total_days }} dní</div>
-                <div v-if="booking.total_price" class="fw-semibold" style="color: var(--jg-primary)">{{ booking.total_price }} €</div>
+                <div v-if="booking.total_price" class="fw-semibold" style="color: var(--jg-primary)">{{ booking.total_price }} Kč</div>
               </td>
               <td>
                 <span :class="['badge', statusClass(booking.status)]">
@@ -107,7 +107,7 @@
                     v-if="booking.status === 'pending'"
                     @click="updateStatus(booking, 'confirmed')"
                     class="btn btn-outline-success btn-sm"
-                    title="Potvrdiť"
+                    title="Potvrdit"
                   >
                     <i class="bi bi-check-lg"></i>
                   </button>
@@ -115,14 +115,14 @@
                     v-if="booking.status !== 'cancelled'"
                     @click="updateStatus(booking, 'cancelled')"
                     class="btn btn-outline-warning btn-sm"
-                    title="Zrušiť"
+                    title="Zrušit"
                   >
                     <i class="bi bi-x-lg"></i>
                   </button>
                   <button
                     @click="deleteBooking(booking.id)"
                     class="btn btn-outline-danger btn-sm"
-                    title="Vymazať"
+                    title="Vymazat"
                   >
                     <i class="bi bi-trash"></i>
                   </button>
@@ -132,7 +132,7 @@
             <tr v-if="bookings.length === 0">
               <td colspan="6" class="text-center text-muted py-4">
                 <i class="bi bi-calendar-x display-6 d-block mb-2"></i>
-                Žiadne rezervácie
+                Žádné rezervace
               </td>
             </tr>
           </tbody>
@@ -169,9 +169,9 @@ const activeFilter = ref('all')
 const dateFilter = ref('')
 
 const filters = [
-  { label: 'Všetky', value: 'all' },
-  { label: 'Čakajúce', value: 'pending' },
-  { label: 'Potvrdené', value: 'confirmed' },
+  { label: 'Všechny', value: 'all' },
+  { label: 'Čekající', value: 'pending' },
+  { label: 'Potvrzené', value: 'confirmed' },
   { label: 'Zrušené', value: 'cancelled' },
 ]
 
@@ -203,7 +203,7 @@ const updateStatus = async (booking: Booking, status: string) => {
 }
 
 const deleteBooking = async (id: number) => {
-  if (!confirm('Naozaj vymazať túto rezerváciu?')) return
+  if (!confirm('Opravdu vymazat tuto rezervaci?')) return
   try {
     await api.del(`/admin/bookings/${id}`)
     bookings.value = bookings.value.filter(b => b.id !== id)
@@ -215,12 +215,12 @@ const deleteBooking = async (id: number) => {
 
 const formatDate = (dateStr: string) => {
   if (!dateStr) return '-'
-  return new Date(dateStr).toLocaleDateString('sk-SK', {
+  return new Date(dateStr).toLocaleDateString('cs-CZ', {
     day: 'numeric', month: 'numeric', year: 'numeric',
   })
 }
 
-const statusLabel = (s: string) => ({ pending: 'Čaká', confirmed: 'Potvrdená', cancelled: 'Zrušená' }[s] ?? s)
+const statusLabel = (s: string) => ({ pending: 'Čeká', confirmed: 'Potvrzena', cancelled: 'Zrušena' }[s] ?? s)
 const statusClass = (s: string) => ({ pending: 'bg-warning text-dark', confirmed: 'bg-success', cancelled: 'bg-secondary' }[s] ?? 'bg-secondary')
 
 onMounted(() => {

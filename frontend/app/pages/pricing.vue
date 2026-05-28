@@ -2,7 +2,7 @@
   <div>
     <div class="page-header">
       <div class="container">
-        <h1>Cenník</h1>
+        <h1>Ceník</h1>
       </div>
     </div>
 
@@ -10,8 +10,8 @@
       <div class="container">
         <div class="alert alert-info mb-4">
           <i class="bi bi-info-circle me-2"></i>
-          Uvedené ceny sú orientačné. Cena prenájmu závisí od zvoleného karavanu a dĺžky pobytu.
-          Pre presnú cenovú ponuku nás kontaktujte.
+          Uvedené ceny jsou orientační. Cena pronájmu závisí na zvoleném karavanu a délce pobytu.
+          Pro přesnou cenovou nabídku nás kontaktujte.
         </div>
 
         <div v-for="(items, category) in pricing" :key="category" class="pricing-category">
@@ -24,6 +24,7 @@
                     <th>Služba</th>
                     <th>Popis</th>
                     <th class="text-end">Cena</th>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -32,13 +33,13 @@
                     <td class="text-muted">{{ item.description || '-' }}</td>
                     <td class="text-end text-primary fw-semibold text-nowrap">
                       <template v-if="item.price_from && item.price_to">
-                        {{ item.price_from }} - {{ item.price_to }} €
+                        {{ item.price_from }} - {{ item.price_to }} Kč
                       </template>
                       <template v-else-if="item.price_from">
-                        od {{ item.price_from }} €
+                        od {{ item.price_from }} Kč
                       </template>
                       <template v-else>
-                        Na dopyt
+                        Na dotaz
                       </template>
                     </td>
                   </tr>
@@ -50,13 +51,13 @@
 
         <div v-if="Object.keys(pricing).length === 0" class="text-center text-muted py-5">
           <i class="bi bi-inbox display-4 d-block mb-3"></i>
-          Cenník nie je k dispozícii.
+          Ceník není k dispozici.
         </div>
 
         <div class="card bg-light border-0 mt-5">
           <div class="card-body text-center py-4">
-            <h4 class="mb-2">Potrebujete presnejšiu cenovú ponuku?</h4>
-            <p class="text-muted mb-3">Kontaktujte nás s termínom a počtom dní prenájmu.</p>
+            <h4 class="mb-2">Potřebujete přesnější cenovou nabídku?</h4>
+            <p class="text-muted mb-3">Kontaktujte nás s termínem a počtem dní pronájmu.</p>
             <NuxtLink :to="localePath({ name: 'contact' })" class="btn btn-primary">
               <i class="bi bi-envelope me-2"></i>
               Kontaktujte nás
@@ -90,10 +91,10 @@ const { data: pricing } = await useAsyncData(
 const url = useRequestURL()
 
 useSeoMeta({
-  title: "Cenník | CampingForYou",
-  description: 'Cenník prenájmu karavanov CampingForYou. Orientačné ceny za deň prenájmu a doplnkové služby.',
-  ogTitle: 'Cenník | CampingForYou',
-  ogDescription: 'Orientačné ceny prenájmu karavanov a doplnkových služieb CampingForYou.',
+  title: "Ceník | CampingForYou",
+  description: 'Ceník pronájmu karavanů CampingForYou. Orientační ceny za den pronájmu a doplňkové služby.',
+  ogTitle: 'Ceník | CampingForYou',
+  ogDescription: 'Orientační ceny pronájmu karavanů a doplňkových služeb CampingForYou.',
   ogType: 'website',
   ogUrl: url.href,
   ogSiteName: "CampingForYou",
@@ -107,7 +108,7 @@ useHead({
       '@context': 'https://schema.org',
       '@type': 'WebPage',
       name: 'Cenník | CampingForYou',
-      description: 'Cenník prenájmu karavanov.',
+      description: 'Ceník pronájmu karavanů.',
       url: url.href,
       breadcrumb: {
         '@type': 'BreadcrumbList',

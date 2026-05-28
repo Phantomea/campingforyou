@@ -3,7 +3,7 @@ export function useBusinessSchema(settings: Record<string, any>, siteOrigin: str
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: 'CampingForYou',
-    description: 'Prenájom karavanov pre nezabudnuteľné prázdniny a výlety. Moderné a dobre vybavené karavany.',
+    description: 'Pronájem karavanů pro nezapomenutelné prázdniny a výlety. Moderní a dobře vybavené karavany.',
     url: siteOrigin,
   }
   if (settings.phone) schema.telephone = settings.phone
@@ -12,7 +12,7 @@ export function useBusinessSchema(settings: Record<string, any>, siteOrigin: str
     schema.address = {
       '@type': 'PostalAddress',
       streetAddress: settings.address,
-      addressCountry: 'SK',
+      addressCountry: 'CZ',
     }
   }
   const sameAs = [settings.facebook, settings.instagram].filter(Boolean)

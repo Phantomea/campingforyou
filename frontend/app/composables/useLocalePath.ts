@@ -1,7 +1,7 @@
 const routeNameToPath: Record<string, string> = {
   'index':                '/',
-  'services':             '/sluzby',
-  'services-slug':        '/sluzby/:slug',
+  'services':             '/karavany',
+  'services-slug':        '/karavany/:slug',
   'pricing':              '/cennik',
   'gallery':             '/galeria',
   'contact':              '/kontakt',
@@ -16,6 +16,9 @@ const routeNameToPath: Record<string, string> = {
   'admin-settings':       '/admin/nastavenia',
   'admin-super':          '/admin/super',
   'admin-super-users':    '/admin/super/pouzivatelia',
+  'rezervacia':           '/rezervacia',
+  'rezervacia-termin':    '/rezervacia/termin',
+  'rezervacia-udaje':     '/rezervacia/udaje',
 }
 
 interface LocalePathOptions {

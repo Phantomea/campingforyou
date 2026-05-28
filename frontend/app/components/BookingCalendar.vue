@@ -24,52 +24,61 @@
         :key="day"
         type="button"
         class="cal-cell cal-day"
-        :class="{
-          'is-today':    isToday(day),
-          'is-selected': isSelected(day),
-          'is-disabled': isDisabled(day),
-          'is-weekend':  isWeekend(day),
-          'is-blocked':  isBlocked(day),
-        }"
-        :disabled="isDisabled(day) || isBlocked(day)"
-        :title="blockReason(day)"
+        :class="dayClasses(day)"
+        :disabled="isCellDisabled(day)"
+        :title="dayTitle(day)"
         @click="selectDay(day)"
+        @mouseenter="hoverDay = dateStr(day)"
+        @mouseleave="hoverDay = null"
       >
         {{ day }}
-        <span v-if="isBlocked(day) && !isWeekend(day) && !isPast(day)" class="cal-blocked-dot"></span>
+        <span v-if="isBlocked(day) && !isPast(day)" class="cal-blocked-dot"></span>
       </button>
     </div>
 
     <!-- Legenda -->
     <div class="cal-legend mt-2">
-      <span class="legend-item"><span class="legend-dot blocked"></span> Nedostupný deň</span>
-      <span class="legend-item"><span class="legend-dot selected"></span> Vybraný deň</span>
+      <span class="legend-item"><span class="legend-dot blocked"></span> Nedostupné</span>
+      <span class="legend-item"><span class="legend-dot range-start"></span> Převzetí</span>
+      <span class="legend-item"><span class="legend-dot range-end"></span> Vrácení</span>
+      <span class="legend-item"><span class="legend-dot in-range"></span> Pronájem</span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 const props = defineProps<{
-  modelValue: string
-  blockedDays?: string[] // YYYY-MM-DD
+  dateFrom: string       // YYYY-MM-DD alebo ''
+  dateTo: string         // YYYY-MM-DD alebo ''
+  blockedDays?: string[] // YYYY-MM-DD[]
+  selectingEnd?: boolean // true = kliknutie nastaví dateTo, false = dateFrom
+  minDate?: string       // YYYY-MM-DD — najskorší voliteľný dátum (default: dnes)
 }>()
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', val: string): void
+  (e: 'update:dateFrom', val: string): void
+  (e: 'update:dateTo', val: string): void
   (e: 'monthChange', year: number, month: number): void
 }>()
 
 const today = new Date()
 today.setHours(0, 0, 0, 0)
 
+// Najskorší voliteľný deň — buď dnes alebo zajtrajšok (ak prešiel cutoff na backende)
+const minDateObj = computed(() => {
+  if (props.minDate) return new Date(props.minDate + 'T00:00:00')
+  return today
+})
+
 const viewYear  = ref(today.getFullYear())
 const viewMonth = ref(today.getMonth())
+const hoverDay  = ref<string | null>(null)
 
 const dayNames = ['Po', 'Ut', 'St', 'Št', 'Pi', 'So', 'Ne']
 
 const monthLabel = computed(() =>
   new Date(viewYear.value, viewMonth.value, 1)
-    .toLocaleDateString('sk-SK', { month: 'long', year: 'numeric' })
+    .toLocaleDateString('cs-CZ', { month: 'long', year: 'numeric' })
 )
 
 const daysInMonth = computed(() =>
@@ -98,29 +107,86 @@ const nextMonth = () => {
   emit('monthChange', viewYear.value, viewMonth.value + 1)
 }
 
-const dateStr = (day: number) => {
+const dateStr = (day: number): string => {
   const m = String(viewMonth.value + 1).padStart(2, '0')
   const d = String(day).padStart(2, '0')
   return `${viewYear.value}-${m}-${d}`
 }
 
-const isPast = (day: number) => {
-  const d = new Date(viewYear.value, viewMonth.value, day)
-  d.setHours(0, 0, 0, 0)
-  return d < today
+const isPast    = (day: number) => new Date(viewYear.value, viewMonth.value, day) < minDateObj.value
+const isToday   = (day: number) => new Date(viewYear.value, viewMonth.value, day).getTime() === today.getTime()
+const isBlocked = (day: number) => !!props.blockedDays?.includes(dateStr(day))
+
+// First blocked day after dateFrom — limits how far the end date can go
+const firstBlockedAfterFrom = computed((): string | null => {
+  if (!props.selectingEnd || !props.dateFrom || !props.blockedDays?.length) return null
+  return props.blockedDays.filter(d => d > props.dateFrom).sort()[0] ?? null
+})
+
+// A day that cannot be selected as end date because it's at/after a blocked day in the range
+const isAfterRangeBlock = (day: number): boolean => {
+  if (!props.selectingEnd || !firstBlockedAfterFrom.value) return false
+  return dateStr(day) >= firstBlockedAfterFrom.value
 }
 
-const isToday   = (day: number) => new Date(viewYear.value, viewMonth.value, day).getTime() === today.getTime()
-const isSelected = (day: number) => dateStr(day) === props.modelValue
-const isWeekend  = (day: number) => { const w = new Date(viewYear.value, viewMonth.value, day).getDay(); return w === 0 || w === 6 }
-const isBlocked  = (day: number) => !!props.blockedDays?.includes(dateStr(day))
-const isDisabled = (day: number) => isWeekend(day) || isPast(day)
+const isCellDisabled = (day: number): boolean =>
+  isPast(day) || isBlocked(day) || isAfterRangeBlock(day)
 
-const blockReason = (day: number) => isBlocked(day) ? 'Tento deň je nedostupný' : ''
+const isRangeStart = (day: number) => !!props.dateFrom && dateStr(day) === props.dateFrom
+const isRangeEnd   = (day: number) => !!props.dateTo   && dateStr(day) === props.dateTo
+
+const isInRange = (day: number): boolean => {
+  const d = dateStr(day)
+  const from = props.dateFrom
+  // Clip the preview range at the first blocked day
+  const limit = firstBlockedAfterFrom.value
+  const rawTo = props.dateTo || (props.selectingEnd && hoverDay.value ? hoverDay.value : '')
+  const to = (limit && rawTo >= limit) ? limit : rawTo
+  if (!from || !to) return false
+  return d > from && d < to
+}
+
+const isHoverEnd = (day: number): boolean => {
+  if (!props.selectingEnd || !hoverDay.value || props.dateTo) return false
+  // Don't show hover end past first blocked day
+  if (firstBlockedAfterFrom.value && hoverDay.value >= firstBlockedAfterFrom.value) return false
+  return dateStr(day) === hoverDay.value && hoverDay.value > (props.dateFrom || '')
+}
+
+const dayClasses = (day: number) => ({
+  'is-today':       isToday(day) && !isPast(day),
+  'is-disabled':    isPast(day) || isAfterRangeBlock(day),
+  'is-blocked':     isBlocked(day),
+  'is-range-start': isRangeStart(day),
+  'is-range-end':   isRangeEnd(day),
+  'is-in-range':    isInRange(day),
+  'is-hover-end':   isHoverEnd(day),
+})
+
+const dayTitle = (day: number): string => {
+  if (isBlocked(day)) return 'Tento termín není dostupný'
+  if (isPast(day))    return 'Minulé datum'
+  if (isAfterRangeBlock(day)) return 'Termín je za obsazeným dnem'
+  if (isRangeStart(day)) return 'Datum převzetí'
+  if (isRangeEnd(day))   return 'Datum vrácení'
+  return ''
+}
 
 const selectDay = (day: number) => {
-  if (isDisabled(day) || isBlocked(day)) return
-  emit('update:modelValue', dateStr(day))
+  if (isCellDisabled(day)) return
+  const d = dateStr(day)
+
+  if (!props.selectingEnd) {
+    emit('update:dateFrom', d)
+    emit('update:dateTo', '')
+  } else {
+    if (props.dateFrom && d > props.dateFrom) {
+      emit('update:dateTo', d)
+    } else {
+      emit('update:dateFrom', d)
+      emit('update:dateTo', '')
+    }
+  }
 }
 </script>
 
@@ -162,7 +228,7 @@ const selectDay = (day: number) => {
 .cal-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 3px;
+  gap: 2px;
 }
 
 .cal-cell {
@@ -191,30 +257,51 @@ const selectDay = (day: number) => {
   cursor: pointer;
   color: #333;
   font-weight: 500;
-  transition: all 0.15s;
+  transition: background 0.1s, border-color 0.1s, color 0.1s;
 }
 
-.cal-day:hover:not(:disabled):not(.is-selected):not(.is-blocked) {
+.cal-day:hover:not(:disabled):not(.is-range-start):not(.is-range-end):not(.is-blocked) {
   border-color: var(--jg-primary);
   color: var(--jg-primary);
   background: rgba(139, 26, 26, 0.05);
 }
 
-.cal-day.is-today:not(.is-selected) {
+.cal-day.is-today:not(.is-range-start):not(.is-range-end) {
   border-color: #dee2e6;
   font-weight: 700;
   color: var(--jg-primary);
 }
 
-.cal-day.is-selected {
+.cal-day.is-range-start {
   background-color: var(--jg-primary);
   border-color: var(--jg-primary);
+  border-radius: 0.375rem 0 0 0.375rem;
   color: #fff;
   font-weight: 700;
 }
 
-.cal-day.is-disabled,
-.cal-day.is-weekend {
+.cal-day.is-range-end {
+  background-color: #2d6a4f;
+  border-color: #2d6a4f;
+  border-radius: 0 0.375rem 0.375rem 0;
+  color: #fff;
+  font-weight: 700;
+}
+
+.cal-day.is-in-range {
+  background-color: rgba(139, 26, 26, 0.1);
+  border-color: transparent;
+  border-radius: 0;
+  color: #333;
+}
+
+.cal-day.is-hover-end {
+  background-color: rgba(45, 106, 79, 0.2);
+  border-color: #2d6a4f;
+  color: #2d6a4f;
+}
+
+.cal-day.is-disabled {
   color: #ccc;
   cursor: not-allowed;
   background: none;
@@ -240,8 +327,9 @@ const selectDay = (day: number) => {
 
 .cal-legend {
   display: flex;
-  gap: 1rem;
-  font-size: 0.75rem;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  font-size: 0.7rem;
   color: #888;
 }
 
@@ -258,6 +346,8 @@ const selectDay = (day: number) => {
   display: inline-block;
 }
 
-.legend-dot.blocked { background-color: #ffd0d0; border: 1px solid #dc3545; }
-.legend-dot.selected { background-color: var(--jg-primary); }
+.legend-dot.blocked    { background-color: #ffd0d0; border: 1px solid #dc3545; }
+.legend-dot.range-start { background-color: var(--jg-primary); }
+.legend-dot.range-end   { background-color: #2d6a4f; }
+.legend-dot.in-range    { background-color: rgba(139, 26, 26, 0.15); border: 1px solid rgba(139,26,26,0.3); }
 </style>

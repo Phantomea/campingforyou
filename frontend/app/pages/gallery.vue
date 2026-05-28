@@ -2,8 +2,8 @@
   <div>
     <div class="page-header">
       <div class="container">
-        <h1>Galéria</h1>
-        <p class="page-header-sub">Pozrite sa na naše karavany</p>
+        <h1>Galerie</h1>
+        <p class="page-header-sub">Podívejte se na naše karavany</p>
       </div>
     </div>
 
@@ -12,13 +12,13 @@
 
         <div v-if="pending" class="text-center py-5">
           <div class="spinner-border text-secondary" role="status">
-            <span class="visually-hidden">Načítavam...</span>
+            <span class="visually-hidden">Načítání...</span>
           </div>
         </div>
 
         <div v-else-if="images.length === 0" class="text-center py-5 text-muted">
           <i class="bi bi-images" style="font-size: 3rem; opacity: 0.3;"></i>
-          <p class="mt-3">Fotografie čoskoro pribudnú.</p>
+          <p class="mt-3">Fotografie brzy přibudou.</p>
         </div>
 
         <div v-else class="gallery-grid">
@@ -28,7 +28,7 @@
             class="gallery-item"
             @click="openLightbox(index)"
           >
-            <img :src="image.url" :alt="`Galéria CampingForYou – foto ${index + 1}`" loading="lazy" />
+            <img :src="image.url" :alt="`Galerie CampingForYou – foto ${index + 1}`" loading="lazy" />
             <div class="gallery-item-overlay">
               <i class="bi bi-zoom-in"></i>
             </div>
@@ -40,17 +40,17 @@
 
     <!-- Lightbox -->
     <div v-if="lightboxIndex !== null" class="lightbox" @click.self="closeLightbox">
-      <button class="lightbox-close" @click="closeLightbox" aria-label="Zavrieť">
+      <button class="lightbox-close" @click="closeLightbox" aria-label="Zavřít">
         <i class="bi bi-x-lg"></i>
       </button>
-      <button class="lightbox-prev" @click="prevImage" aria-label="Predchádzajúca">
+      <button class="lightbox-prev" @click="prevImage" aria-label="Předchozí">
         <i class="bi bi-chevron-left"></i>
       </button>
       <div class="lightbox-inner">
         <img :src="images[lightboxIndex].url" :alt="`Foto ${lightboxIndex + 1}`" />
         <p class="lightbox-counter">{{ lightboxIndex + 1 }} / {{ images.length }}</p>
       </div>
-      <button class="lightbox-next" @click="nextImage" aria-label="Nasledujúca">
+      <button class="lightbox-next" @click="nextImage" aria-label="Následující">
         <i class="bi bi-chevron-right"></i>
       </button>
     </div>
@@ -75,10 +75,10 @@ const { data: images, pending } = await useAsyncData(
 )
 
 useSeoMeta({
-  title: "Galéria | CampingForYou",
-  description: 'Fotogaléria karavanov CampingForYou — pozrite sa na naše karavany.',
-  ogTitle: 'Galéria | CampingForYou',
-  ogDescription: 'Fotografie karavanov CampingForYou.',
+  title: "Galerie | CampingForYou",
+  description: 'Fotogalerie karavanů CampingForYou — podívejte se na naše karavany.',
+  ogTitle: 'Galerie | CampingForYou',
+  ogDescription: 'Fotografie karavanů CampingForYou.',
   ogType: 'website',
   ogUrl: url.href,
   ogSiteName: "CampingForYou",
@@ -91,8 +91,8 @@ useHead({
     innerHTML: JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'ImageGallery',
-      name: 'Galéria CampingForYou',
-      description: 'Fotogaléria karavanov CampingForYou.',
+      name: 'Galerie CampingForYou',
+      description: 'Fotogalerie karavanů CampingForYou.',
       url: url.href,
       image: (images.value || []).map(img => img.url),
     }),

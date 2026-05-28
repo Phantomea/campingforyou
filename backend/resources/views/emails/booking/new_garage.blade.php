@@ -97,7 +97,7 @@
           Celková cena
         </td>
         <td style="padding:7px 0;font-size:14px;color:#1a1a1a;font-weight:600;border-top:1px solid #eeeeee;vertical-align:top;">
-          {{ $booking->total_price }} €
+          {{ number_format($booking->total_price, 0, ',', ' ') }} Kč
         </td>
       </tr>
       @endif
@@ -120,6 +120,41 @@
           {{ $booking->note }}
         </td>
       </tr>
+      @endif
+
+      @if($booking->billing_company || $booking->billing_street || $booking->billing_ico)
+      <tr>
+        <td colspan="2" style="padding:10px 0 4px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#aaaaaa;border-top:2px solid #eeeeee;">
+          Fakturačné údaje
+        </td>
+      </tr>
+      @if($booking->billing_company)
+      <tr>
+        <td style="padding:5px 0;font-size:13px;color:#888888;width:38%;vertical-align:top;">Firma</td>
+        <td style="padding:5px 0;font-size:14px;color:#1a1a1a;font-weight:600;vertical-align:top;">{{ $booking->billing_company }}</td>
+      </tr>
+      @endif
+      @if($booking->billing_ico)
+      <tr>
+        <td style="padding:5px 0;font-size:13px;color:#888888;border-top:1px solid #eeeeee;vertical-align:top;">IČO</td>
+        <td style="padding:5px 0;font-size:14px;color:#1a1a1a;font-weight:600;border-top:1px solid #eeeeee;vertical-align:top;">{{ $booking->billing_ico }}</td>
+      </tr>
+      @endif
+      @if($booking->billing_dic)
+      <tr>
+        <td style="padding:5px 0;font-size:13px;color:#888888;border-top:1px solid #eeeeee;vertical-align:top;">DIČ</td>
+        <td style="padding:5px 0;font-size:14px;color:#1a1a1a;font-weight:600;border-top:1px solid #eeeeee;vertical-align:top;">{{ $booking->billing_dic }}</td>
+      </tr>
+      @endif
+      @if($booking->billing_street)
+      <tr>
+        <td style="padding:5px 0;font-size:13px;color:#888888;border-top:1px solid #eeeeee;vertical-align:top;">Adresa</td>
+        <td style="padding:5px 0;font-size:14px;color:#1a1a1a;font-weight:600;border-top:1px solid #eeeeee;vertical-align:top;">
+          {{ $booking->billing_street }}<br/>
+          {{ trim($booking->billing_zip . ' ' . $booking->billing_city) }}
+        </td>
+      </tr>
+      @endif
       @endif
 
     </table>

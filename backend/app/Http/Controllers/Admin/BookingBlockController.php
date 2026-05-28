@@ -16,7 +16,11 @@ class BookingBlockController extends Controller
             ->orderBy('block_date_from');
 
         if ($request->has('service_id')) {
-            $query->where(fn($q) => $q->whereNull('service_id')->orWhere('service_id', $request->service_id));
+            if ($request->boolean('strict')) {
+                $query->where('service_id', $request->service_id);
+            } else {
+                $query->where(fn($q) => $q->whereNull('service_id')->orWhere('service_id', $request->service_id));
+            }
         }
 
         if ($request->has('from')) {

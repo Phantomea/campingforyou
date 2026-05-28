@@ -126,6 +126,9 @@
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/laminas/laminas-diactoros" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/laravel/octane" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/symfony/psr-http-message-bridge" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/bacon/bacon-qr-code" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/dasprid/enum" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/endroid/qr-code" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

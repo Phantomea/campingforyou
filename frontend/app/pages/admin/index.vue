@@ -24,7 +24,7 @@
                 <i class="bi bi-currency-euro text-success fs-4"></i>
               </div>
               <div>
-                <p class="text-muted small mb-0">Položky cenníka</p>
+                <p class="text-muted small mb-0">Položky ceníku</p>
                 <h3 class="mb-0 text-success">{{ stats.pricing }}</h3>
               </div>
             </div>
@@ -48,16 +48,16 @@
       </div>
     </div>
 
-    <h5 class="mb-3">Rýchle akcie</h5>
+    <h5 class="mb-3">Rychlé akce</h5>
     <div class="row g-4">
       <div class="col-md-4">
         <NuxtLink :to="localePath({ name: 'admin-services' })" class="card border-0 shadow-sm text-decoration-none h-100">
           <div class="card-body">
             <h6 class="card-title mb-1">
               <i class="bi bi-tools me-2 text-primary"></i>
-              Spravovať služby
+              Spravovat karavany
             </h6>
-            <p class="card-text text-muted small mb-0">Pridať, upraviť alebo odstrániť služby</p>
+            <p class="card-text text-muted small mb-0">Přidat, upravit nebo odstranit karavany</p>
           </div>
         </NuxtLink>
       </div>
@@ -66,9 +66,9 @@
           <div class="card-body">
             <h6 class="card-title mb-1">
               <i class="bi bi-currency-euro me-2 text-primary"></i>
-              Spravovať cenník
+              Spravovat ceník
             </h6>
-            <p class="card-text text-muted small mb-0">Aktualizovať ceny služieb</p>
+            <p class="card-text text-muted small mb-0">Aktualizovat ceny služeb</p>
           </div>
         </NuxtLink>
       </div>
@@ -77,9 +77,9 @@
           <div class="card-body">
             <h6 class="card-title mb-1">
               <i class="bi bi-gear me-2 text-primary"></i>
-              Nastavenia
+              Nastavení
             </h6>
-            <p class="card-text text-muted small mb-0">Kontaktné údaje a otváracie hodiny</p>
+            <p class="card-text text-muted small mb-0">Kontaktní údaje a otevírací hodiny</p>
           </div>
         </NuxtLink>
       </div>

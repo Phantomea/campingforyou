@@ -20,24 +20,28 @@
         :class="{ active: isPricingActive }"
         @click="pricingOpen = !pricingOpen"
       >
-        <span><i class="bi bi-currency-euro me-2"></i>Cenníky</span>
+        <span><i class="bi bi-currency-exchange me-2"></i>Ceník</span>
         <i :class="pricingOpen ? 'bi bi-chevron-up' : 'bi bi-chevron-down'" class="small"></i>
       </button>
       <div v-show="pricingOpen" class="ms-3">
         <NuxtLink :to="localePath({ name: 'admin-pricing' })" class="nav-link py-1" :class="{ active: route.name === 'admin-pricing' }">
-          <i class="bi bi-list-ul me-2"></i>Prehľad
+          <i class="bi bi-list-ul me-2"></i>Přehled
         </NuxtLink>
         <NuxtLink :to="localePath({ name: 'admin-pricing-categories' })" class="nav-link py-1" :class="{ active: route.name === 'admin-pricing-categories' }">
-          <i class="bi bi-tags me-2"></i>Kategórie
+          <i class="bi bi-tags me-2"></i>Kategorie
         </NuxtLink>
       </div>
       <NuxtLink :to="localePath({ name: 'admin-bookings' })" class="nav-link" :class="{ active: route.name === 'admin-bookings' }">
         <i class="bi bi-calendar-check me-2"></i>
-        Rezervácie
+        Rezervace
+      </NuxtLink>
+      <NuxtLink :to="localePath({ name: 'admin-addon-services' })" class="nav-link" :class="{ active: route.name === 'admin-addon-services' }">
+        <i class="bi bi-stars me-2"></i>
+        Doplnkové služby
       </NuxtLink>
       <NuxtLink :to="localePath({ name: 'admin-booking-blocks' })" class="nav-link" :class="{ active: route.name === 'admin-booking-blocks' }">
         <i class="bi bi-slash-circle me-2"></i>
-        Bloky termínov
+        Blokovaná data
       </NuxtLink>
       <!-- <NuxtLink :to="localePath({ name: 'admin-pages' })" class="nav-link" :class="{ active: route.name === 'admin-pages' }">
         <i class="bi bi-file-text me-2"></i>
@@ -45,25 +49,25 @@
       </NuxtLink> -->
       <NuxtLink :to="localePath({ name: 'admin-settings' })" class="nav-link" :class="{ active: route.name === 'admin-settings' }">
         <i class="bi bi-gear me-2"></i>
-        Nastavenia
+        Nastavení
       </NuxtLink>
 
       <div v-if="isSuperAdmin" class="mt-3 pt-3 border-top border-secondary">
         <span class="px-3 text-uppercase small text-secondary fw-semibold">Super Admin</span>
         <NuxtLink :to="localePath({ name: 'admin-super' })" class="nav-link mt-2" :class="{ active: route.name === 'admin-super' }">
           <i class="bi bi-shield-check me-2"></i>
-          Prehľad
+          Přehled
         </NuxtLink>
         <NuxtLink :to="localePath({ name: 'admin-super-users' })" class="nav-link" :class="{ active: route.name === 'admin-super-users' }">
           <i class="bi bi-people me-2"></i>
-          Používatelia
+          Uživatelé
         </NuxtLink>
       </div>
     </nav>
     <div class="py-3 border-top border-secondary">
       <NuxtLink :to="localePath({ name: 'index' })" class="nav-link">
         <i class="bi bi-eye me-2"></i>
-        Zobraziť web
+        Zobrazit web
       </NuxtLink>
     </div>
   </aside>

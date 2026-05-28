@@ -1,8 +1,8 @@
 import type { RouterConfig } from '@nuxt/schema'
 
 const skPaths: Record<string, string> = {
-  '/services':          '/sluzby',
-  '/services/:slug()':  '/sluzby/:slug()',
+  '/services':          '/karavany',
+  '/services/:slug()':  '/karavany/:slug()',
   '/pricing':           '/cennik',
   '/gallery':           '/galeria',
   '/contact':           '/kontakt',

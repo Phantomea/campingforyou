@@ -58,8 +58,31 @@ export const useApi = () => {
       body: data ? JSON.stringify(data) : undefined,
     })
 
-  const del = <T>(endpoint: string) =>
-    apiFetch<T>(endpoint, { method: 'DELETE' })
+  const del = <T>(endpoint: string, data?: unknown) =>
+    apiFetch<T>(endpoint, {
+      method: 'DELETE',
+      body: data ? JSON.stringify(data) : undefined,
+    })
+
+  const upload = async <T>(endpoint: string, formData: FormData, method = 'POST'): Promise<T> => {
+    const base = import.meta.server ? config.apiBaseServer : config.public.apiBase
+    const url = `${base}${endpoint}`
+    const xsrf = getXsrfToken()
+    const response = await fetch(url, {
+      method,
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        ...(xsrf ? { 'X-XSRF-TOKEN': xsrf } : {}),
+      },
+      body: formData,
+    })
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({}))
+      throw new Error(error.message || `HTTP error! status: ${response.status}`)
+    }
+    return response.json()
+  }
 
   const getCsrfCookie = async () => {
     await fetch(`${config.public.backendUrl}/sanctum/csrf-cookie`, {
@@ -73,6 +96,7 @@ export const useApi = () => {
     put,
     patch,
     del,
+    upload,
     getCsrfCookie,
   }
 }

@@ -14,14 +14,19 @@ web_environment:
   - DB_DATABASE=db
   - DB_USERNAME=db
   - DB_PASSWORD=db
-  - APP_URL=https://campingforyou.ddev.site:8443
-  - FRONTEND_URL=https://frontend.campingforyou.ddev.site:8443
-  - SANCTUM_STATEFUL_DOMAINS=frontend.campingforyou.ddev.site:8443
+  - APP_URL=https://campingforyou.ddev.site
+  - FRONTEND_URL=https://frontend.campingforyou.ddev.site
+  - SANCTUM_STATEFUL_DOMAINS=frontend.campingforyou.ddev.site
   - SESSION_DOMAIN=.campingforyou.ddev.site
   - MAIL_HOST=mailpit
   - MAIL_PORT=1025
   - MAIL_MAILER=smtp
   - MAIL_SCHEME=
+
+web_extra_daemons:
+  - name: laravel-queue-worker
+    command: "php /var/www/html/backend/artisan queue:work --sleep=3 --tries=3 --backoff=5"
+    directory: /var/www/html/backend
 
 hooks:
   post-start:

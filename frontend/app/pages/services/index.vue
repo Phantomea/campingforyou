@@ -8,32 +8,18 @@
 
     <section class="section">
       <div class="container">
-        <div class="row g-4">
-          <div v-for="service in services" :key="service.id" class="col-lg-4 col-md-6">
-            <div class="card h-100 service-card">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title">{{ service.title }}</h5>
-                <p class="card-text text-muted flex-grow-1">{{ service.description }}</p>
-                <div class="d-flex gap-3 small text-muted mb-3">
-                  <span v-if="service.manufacturer"><i class="bi bi-tag me-1"></i>{{ service.manufacturer }}</span>
-                  <span v-if="service.capacity"><i class="bi bi-people me-1"></i>{{ service.capacity }} os.</span>
-                  <span v-if="service.year"><i class="bi bi-calendar me-1"></i>{{ service.year }}</span>
-                </div>
-                <p v-if="service.price_per_day" class="text-primary fw-semibold mb-3">{{ service.price_per_day }} €/deň</p>
-                <p v-else-if="service.price" class="text-primary fw-semibold mb-3">od {{ service.price }} €</p>
-                <NuxtLink :to="localePath({ name: 'services-slug', params: { slug: service.slug } })" class="btn btn-primary">
-                  Rezervovať
-                  <i class="bi bi-arrow-right ms-1"></i>
-                </NuxtLink>
-              </div>
+        <SpinnerLoader v-if="pending" text="Načítávám..." />
+        <template v-else>
+          <div class="row g-4">
+            <div v-for="service in services" :key="service.id" class="col-lg-4 col-md-6">
+              <CaravanCard :service="service" />
             </div>
           </div>
-        </div>
-
-        <div v-if="services.length === 0" class="text-center text-muted py-5">
-          <i class="bi bi-inbox display-4 d-block mb-3"></i>
-          Žiadne karavany nie sú k dispozícii.
-        </div>
+          <div v-if="!services.length" class="text-center text-muted py-5">
+            <i class="bi bi-inbox display-4 d-block mb-3"></i>
+            Žádné karavany nejsou k dispozici.
+          </div>
+        </template>
       </div>
     </section>
   </div>
@@ -44,18 +30,21 @@ interface Service {
   id: number
   title: string
   slug: string
-  description: string
+  description: string | null
   price: number | null
-  price_per_day: number | null
+  price_formatted: string | null
+  deposit: number | null
   manufacturer: string | null
   capacity: number | null
   year: number | null
+  image: string | null
+  images: string[] | null
 }
 
 const localePath = useLocalePath()
 const api = useApi()
 
-const { data: services } = await useAsyncData(
+const { data: services, pending } = await useAsyncData(
   'services',
   () => api.get<Service[]>('/services'),
   { default: () => [] as Service[] }
@@ -65,9 +54,9 @@ const url = useRequestURL()
 
 useSeoMeta({
   title: 'Karavany | CampingForYou',
-  description: 'Zoznam karavanov dostupných na prenájom v CampingForYou. Moderné karavany pre vaše prázdniny.',
+  description: 'Seznam karavanů dostupných k pronájmu v CampingForYou. Moderní karavany pro vaše prázdniny.',
   ogTitle: 'Karavany | CampingForYou',
-  ogDescription: 'Moderné karavany na prenájom pre vaše prázdniny a výlety.',
+  ogDescription: 'Moderní karavany k pronájmu pro vaše prázdniny a výlety.',
   ogType: 'website',
   ogUrl: url.href,
   ogSiteName: 'CampingForYou',
@@ -87,7 +76,7 @@ useHead({
         position: i + 1,
         name: s.title,
         description: s.description,
-        url: `${url.origin}/sluzby/${s.slug}`,
+        url: `${url.origin}/karavany/${s.slug}`,
       })),
     }),
   }],

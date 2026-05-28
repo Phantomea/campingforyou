@@ -1,97 +1,61 @@
 <template>
-  <div class="sticky-top">
-    <!-- Top Info Bar -->
-    <div class="top-bar">
-      <div class="container">
-        <div class="d-flex flex-wrap justify-content-md-between align-items-center">
-          <div class="d-flex flex-wrap">
-            <span v-if="openingHoursSummary" class="top-bar-item">
-              <i class="bi bi-clock"></i>
-              {{ openingHoursSummary }}
-            </span>
-            <a :href="`https://maps.google.com/?q=${encodeURIComponent(settings.address || 'Hlavná 123, Bratislava')}`" target="_blank" rel="noopener" class="top-bar-item">
-              <i class="bi bi-geo-alt"></i>
-              {{ settings.address || 'Hlavná 123, Bratislava' }}
-            </a>
-          </div>
-          <div class="d-flex flex-wrap">
-            <a :href="`tel:${settings.phone || '+421900123456'}`" class="top-bar-item">
-              <i class="bi bi-telephone-fill"></i>
-              {{ settings.phone || '+421 900 123 456' }}
-            </a>
-            <a :href="`mailto:${settings.email || 'info@campingforyou.sk'}`" class="top-bar-item">
-              <i class="bi bi-envelope-fill"></i>
-              {{ settings.email || 'info@campingforyou.sk' }}
-            </a>
-          </div>
-        </div>
+  <!-- Main Navigation -->
+  <nav class="main-navbar navbar navbar-expand-lg fixed-top" :class="{ scrolled }">
+    <div class="container">
+      <NuxtLink :to="localePath({ name: 'index' })" class="navbar-brand p-0 me-4">
+        <img src="/logo.png" alt="CampingForYou" />
+      </NuxtLink>
+
+      <button
+        class="navbar-toggler border-0 p-1"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#mainNav"
+        aria-controls="mainNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav me-auto align-items-lg-center">
+          <li class="nav-item">
+            <NuxtLink :to="localePath({ name: 'index' })" class="nav-link" exact>Úvod</NuxtLink>
+          </li>
+          <li class="nav-item">
+            <NuxtLink :to="localePath({ name: 'services' })" class="nav-link">Karavany</NuxtLink>
+          </li>
+          <li class="nav-item">
+            <NuxtLink :to="localePath({ name: 'pricing' })" class="nav-link">Ceník</NuxtLink>
+          </li>
+          <li class="nav-item">
+            <NuxtLink :to="localePath({ name: 'gallery' })" class="nav-link">Galerie</NuxtLink>
+          </li>
+          <li class="nav-item">
+            <NuxtLink :to="localePath({ name: 'contact' })" class="nav-link">Kontakt</NuxtLink>
+          </li>
+        </ul>
+        <ul class="navbar-nav align-items-lg-center ms-auto">
+          <li class="nav-item">
+            <NuxtLink :to="localePath({ name: 'rezervacia' })" class="btn btn-primary px-4">
+              <i class="bi bi-calendar-check me-2"></i>Rezervovat
+            </NuxtLink>
+          </li>
+        </ul>
       </div>
     </div>
-
-    <!-- Main Navigation -->
-    <nav class="main-navbar navbar navbar-expand-lg">
-      <div class="container">
-        <NuxtLink :to="localePath({ name: 'index' })" class="navbar-brand p-0">
-          <img src="/logo.png" alt="CampingForYou" />
-        </NuxtLink>
-
-        <button
-          class="navbar-toggler border-0 p-1"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#mainNav"
-          aria-controls="mainNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="mainNav">
-          <ul class="navbar-nav ms-auto align-items-lg-center">
-            <li class="nav-item">
-              <NuxtLink :to="localePath({ name: 'index' })" class="nav-link" exact>Úvod</NuxtLink>
-            </li>
-            <li class="nav-item">
-              <NuxtLink :to="localePath({ name: 'services' })" class="nav-link">Karavany</NuxtLink>
-            </li>
-            <li class="nav-item">
-              <NuxtLink :to="localePath({ name: 'pricing' })" class="nav-link">Cenník</NuxtLink>
-            </li>
-            <li class="nav-item">
-              <NuxtLink :to="localePath({ name: 'gallery' })" class="nav-link">Galéria</NuxtLink>
-            </li>
-            <li class="nav-item ms-lg-3">
-              <NuxtLink :to="localePath({ name: 'contact' })" class="btn btn-outline-light px-4">
-                Kontakt
-              </NuxtLink>
-            </li>
-          </ul>
-
-        </div>
-      </div>
-    </nav>
-  </div>
+  </nav>
 </template>
 
 <script setup lang="ts">
 const localePath = useLocalePath()
-const api = useApi()
-const settings = ref<Record<string, any>>({})
-const openingHoursSummary = computed(() => {
-  const hours = settings.value?.opening_hours
-  if (!hours || typeof hours !== 'object') return null
-  return Object.entries(hours as Record<string, string>)
-    .map(([day, time]) => `${day}: ${time}`)
-    .join(' · ')
-})
 
-onMounted(async () => {
-  try {
-    const data = await api.get<Record<string, any>>('/settings/public')
-    settings.value = data
-  } catch {
-    // Use defaults
-  }
+const scrolled = ref(false)
+
+onMounted(() => {
+  const onScroll = () => { scrolled.value = window.scrollY > 40 }
+  window.addEventListener('scroll', onScroll, { passive: true })
+  onUnmounted(() => window.removeEventListener('scroll', onScroll))
 })
 </script>

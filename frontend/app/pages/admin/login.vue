@@ -2,8 +2,8 @@
   <div class="min-vh-100 d-flex align-items-center justify-content-center bg-light p-3">
     <div class="card shadow-sm" style="max-width: 400px; width: 100%;">
       <div class="card-body p-4">
-        <h1 class="h4 mb-1">Prihlásenie</h1>
-        <p class="text-muted mb-4">Zadajte svoje prihlasovacie údaje</p>
+        <h1 class="h4 mb-1">Přihlášení</h1>
+        <p class="text-muted mb-4">Zadejte své přihlašovací údaje</p>
 
         <form @submit.prevent="handleLogin">
           <div v-if="error" class="alert alert-danger">
@@ -37,14 +37,14 @@
 
           <button type="submit" class="btn btn-primary w-100" :disabled="loading">
             <span v-if="loading" class="spinner-border spinner-border-sm me-2" role="status"></span>
-            {{ loading ? 'Prihlasujem...' : 'Prihlásiť sa' }}
+            {{ loading ? 'Přihlašuji...' : 'Přihlásit se' }}
           </button>
         </form>
 
         <div class="mt-4 text-center">
           <NuxtLink :to="localePath({ name: 'index' })" class="text-muted text-decoration-none">
             <i class="bi bi-arrow-left me-1"></i>
-            Späť na web
+            Zpět na web
           </NuxtLink>
         </div>
       </div>

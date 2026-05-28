@@ -10,14 +10,14 @@
       <div class="container">
         <div class="row g-5">
           <div class="col-lg-6">
-            <h2 class="h4 mb-4">Kontaktné údaje</h2>
+            <h2 class="h4 mb-4">Kontaktní údaje</h2>
 
             <div class="contact-item">
               <i class="bi bi-telephone"></i>
               <div>
-                <small class="text-muted d-block">Telefón</small>
+                <small class="text-muted d-block">Telefon</small>
                 <a :href="`tel:${settings.phone}`" class="fs-5 text-decoration-none">
-                  {{ settings.phone || '+421 900 123 456' }}
+                  {{ settings.phone || '+420 900 123 456' }}
                 </a>
               </div>
             </div>
@@ -27,7 +27,7 @@
               <div>
                 <small class="text-muted d-block">Email</small>
                 <a :href="`mailto:${settings.email}`" class="fs-5 text-decoration-none">
-                  {{ settings.email || 'info@campingforyou.sk' }}
+                  {{ settings.email || 'info@campingforyou.cz' }}
                 </a>
               </div>
             </div>
@@ -36,13 +36,13 @@
               <i class="bi bi-geo-alt"></i>
               <div>
                 <small class="text-muted d-block">Adresa</small>
-                <a :href="`https://maps.google.com/?q=${encodeURIComponent(settings.address || 'Hlavná 123, 851 01 Bratislava')}`" target="_blank" rel="noopener" class="fs-5 text-decoration-none">
-                  {{ settings.address || 'Hlavná 123, 851 01 Bratislava' }}
+                <a :href="`https://maps.google.com/?q=${encodeURIComponent(settings.address || 'Hlavní 1, 110 00 Praha')}`" target="_blank" rel="noopener" class="fs-5 text-decoration-none">
+                  {{ settings.address || 'Hlavní 1, 110 00 Praha' }}
                 </a>
               </div>
             </div>
 
-            <h3 class="h5 mt-5 mb-3">Otváracie hodiny</h3>
+            <h3 class="h5 mt-5 mb-3">Otevírací hodiny</h3>
             <div v-if="openingHours" class="card bg-light border-0">
               <div class="card-body">
                 <dl class="opening-hours mb-0">
@@ -84,11 +84,11 @@
           </div>
 
           <div class="col-lg-6">
-            <a :href="`https://maps.google.com/?q=${encodeURIComponent(settings.address || 'Hlavná 123, Bratislava')}`" target="_blank" rel="noopener" class="bg-secondary bg-opacity-10 rounded-3 d-flex align-items-center justify-content-center text-decoration-none" style="height: 400px;">
+            <a :href="`https://maps.google.com/?q=${encodeURIComponent(settings.address || 'Hlavní 1, Praha')}`" target="_blank" rel="noopener" class="bg-secondary bg-opacity-10 rounded-3 d-flex align-items-center justify-content-center text-decoration-none" style="height: 400px;">
               <div class="text-center text-muted">
                 <i class="bi bi-map display-4 d-block mb-2"></i>
-                <p class="mb-0">Zobraziť na mape</p>
-                <small>{{ settings.address || 'Hlavná 123, Bratislava' }}</small>
+                <p class="mb-0">Zobrazit na mapě</p>
+                <small>{{ settings.address || 'Hlavní 1, Praha' }}</small>
               </div>
             </a>
           </div>
@@ -114,9 +114,9 @@ const url = useRequestURL()
 
 useSeoMeta({
   title: "Kontakt | CampingForYou",
-  description: 'Kontaktujte CampingForYou. Nájdete nás na adrese, zavolajte nám alebo pošlite e-mail.',
+  description: 'Kontaktujte CampingForYou. Najdete nás na adrese, zavolejte nám nebo pošlete e-mail.',
   ogTitle: 'Kontakt | CampingForYou',
-  ogDescription: 'Kontaktujte CampingForYou - prenájom karavanov. Telefón, adresa a otváracie hodiny.',
+  ogDescription: 'Kontaktujte CampingForYou - pronájem karavanů. Telefon, adresa a otevírací hodiny.',
   ogType: 'website',
   ogUrl: url.href,
   ogSiteName: "CampingForYou",

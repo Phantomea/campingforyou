@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-end mb-4">
       <button @click="openModal()" class="btn btn-primary">
         <i class="bi bi-plus-lg me-1"></i>
-        Pridať stránku
+        Přidat stránku
       </button>
     </div>
 
@@ -33,7 +33,7 @@
             <tr v-if="pages.length === 0">
               <td colspan="3" class="text-center text-muted py-4">
                 <i class="bi bi-inbox display-6 d-block mb-2"></i>
-                Žiadne stránky
+                Žádné stránky
               </td>
             </tr>
           </tbody>
@@ -46,7 +46,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">{{ editingPage ? 'Upraviť stránku' : 'Pridať stránku' }}</h5>
+            <h5 class="modal-title">{{ editingPage ? 'Upravit stránku' : 'Přidat stránku' }}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
           <form @submit.prevent="savePage">
@@ -74,10 +74,10 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zrušiť</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zrušit</button>
               <button type="submit" class="btn btn-primary" :disabled="saving">
                 <span v-if="saving" class="spinner-border spinner-border-sm me-1"></span>
-                {{ saving ? 'Ukladám...' : 'Uložiť' }}
+                {{ saving ? 'Ukládám...' : 'Uložit' }}
               </button>
             </div>
           </form>
@@ -164,19 +164,19 @@ const savePage = async () => {
     await loadPages()
     closeModal()
   } catch (e: any) {
-    alert(e.message || 'Chyba pri ukladaní')
+    alert(e.message || 'Chyba při ukládání')
   } finally {
     saving.value = false
   }
 }
 
 const deletePage = async (id: number) => {
-  if (!confirm('Naozaj chcete vymazať túto stránku?')) return
+  if (!confirm('Opravdu chcete vymazat tuto stránku?')) return
   try {
     await api.del(`/admin/pages/${id}`)
     await loadPages()
   } catch (e: any) {
-    alert(e.message || 'Chyba pri mazaní')
+    alert(e.message || 'Chyba při mazání')
   }
 }
 

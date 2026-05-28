@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-end mb-4">
       <button @click="openModal()" class="btn btn-primary">
         <i class="bi bi-plus-lg me-1"></i>
-        Pridať položku
+        Přidat položku
       </button>
     </div>
 
@@ -12,10 +12,10 @@
         <table class="table table-hover mb-0">
           <thead class="table-light">
             <tr>
-              <th>Názov</th>
-              <th>Kategória</th>
+              <th>Název</th>
+              <th>Kategorie</th>
               <th>Cena</th>
-              <th class="text-end">Akcie</th>
+              <th class="text-end">Akce</th>
             </tr>
           </thead>
           <tbody>
@@ -27,10 +27,10 @@
               </td>
               <td class="text-primary fw-medium">
                 <template v-if="item.price_from && item.price_to">
-                  {{ item.price_from }} - {{ item.price_to }} €
+                  {{ item.price_from }} - {{ item.price_to }} Kč
                 </template>
                 <template v-else-if="item.price_from">
-                  od {{ item.price_from }} €
+                  od {{ item.price_from }} Kč
                 </template>
                 <template v-else>-</template>
               </td>
@@ -46,7 +46,7 @@
             <tr v-if="items.length === 0">
               <td colspan="4" class="text-center text-muted py-4">
                 <i class="bi bi-inbox display-6 d-block mb-2"></i>
-                Žiadne položky
+                Žádné položky
               </td>
             </tr>
           </tbody>
@@ -59,19 +59,19 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">{{ editingItem ? 'Upraviť položku' : 'Pridať položku' }}</h5>
+            <h5 class="modal-title">{{ editingItem ? 'Upravit položku' : 'Přidat položku' }}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
           <form @submit.prevent="saveItem">
             <div class="modal-body">
               <div class="mb-3">
-                <label class="form-label">Názov *</label>
+                <label class="form-label">Název *</label>
                 <input v-model="form.name" type="text" class="form-control" required />
               </div>
               <div class="mb-3">
-                <label class="form-label">Kategória</label>
+                <label class="form-label">Kategorie</label>
                 <select v-model="form.pricing_category_id" class="form-select">
-                  <option :value="null">— bez kategórie —</option>
+                  <option :value="null">— bez kategorie —</option>
                   <option v-for="cat in categories" :key="cat.id" :value="cat.id">
                     {{ cat.name }}
                   </option>
@@ -79,11 +79,11 @@
               </div>
               <div class="row mb-3">
                 <div class="col-6">
-                  <label class="form-label">Cena od (€)</label>
+                  <label class="form-label">Cena od (Kč)</label>
                   <input v-model="form.price_from" type="number" step="0.01" class="form-control" />
                 </div>
                 <div class="col-6">
-                  <label class="form-label">Cena do (€)</label>
+                  <label class="form-label">Cena do (Kč)</label>
                   <input v-model="form.price_to" type="number" step="0.01" class="form-control" />
                 </div>
               </div>
@@ -93,10 +93,10 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zrušiť</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zrušit</button>
               <button type="submit" class="btn btn-primary" :disabled="saving">
                 <span v-if="saving" class="spinner-border spinner-border-sm me-1"></span>
-                {{ saving ? 'Ukladám...' : 'Uložiť' }}
+                {{ saving ? 'Ukládám...' : 'Uložit' }}
               </button>
             </div>
           </form>
@@ -189,19 +189,19 @@ const saveItem = async () => {
     await loadItems()
     closeModal()
   } catch (e: any) {
-    alert(e.message || 'Chyba pri ukladaní')
+    alert(e.message || 'Chyba při ukládání')
   } finally {
     saving.value = false
   }
 }
 
 const deleteItem = async (id: number) => {
-  if (!confirm('Naozaj chcete vymazať túto položku?')) return
+  if (!confirm('Opravdu chcete vymazat tuto položku?')) return
   try {
     await api.del(`/admin/pricing/${id}`)
     await loadItems()
   } catch (e: any) {
-    alert(e.message || 'Chyba pri mazaní')
+    alert(e.message || 'Chyba při mazání')
   }
 }
 

@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-end mb-4">
       <button @click="openModal()" class="btn btn-primary">
         <i class="bi bi-plus-lg me-1"></i>
-        Pridať používateľa
+        Přidat uživatele
       </button>
     </div>
 
@@ -14,7 +14,7 @@
             <tr>
               <th>Meno</th>
               <th>Email</th>
-              <th>Rola</th>
+              <th>Role</th>
               <th class="text-end">Akcie</th>
             </tr>
           </thead>
@@ -24,7 +24,7 @@
               <td class="text-muted">{{ user.email }}</td>
               <td>
                 <span :class="['badge', user.role === 'super_admin' ? 'bg-danger' : 'bg-primary']">
-                  {{ user.role === 'super_admin' ? 'Super Admin' : 'Majiteľ' }}
+                  {{ user.role === 'super_admin' ? 'Super Admin' : 'Majitel' }}
                 </span>
               </td>
               <td class="text-end">
@@ -56,7 +56,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">{{ editingUser ? 'Upraviť používateľa' : 'Pridať používateľa' }}</h5>
+            <h5 class="modal-title">{{ editingUser ? 'Upravit uživatele' : 'Přidat uživatele' }}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
           <form @submit.prevent="saveUser">
@@ -70,7 +70,7 @@
                 <input v-model="form.email" type="email" class="form-control" required />
               </div>
               <div class="mb-3">
-                <label class="form-label">{{ editingUser ? 'Nové heslo (ponechajte prázdne)' : 'Heslo *' }}</label>
+                <label class="form-label">{{ editingUser ? 'Nové heslo (ponechte prázdné)' : 'Heslo *' }}</label>
                 <input
                   v-model="form.password"
                   type="password"
@@ -80,18 +80,18 @@
                 />
               </div>
               <div class="mb-3">
-                <label class="form-label">Rola *</label>
+                <label class="form-label">Role *</label>
                 <select v-model="form.role" class="form-select" required>
-                  <option value="owner">Majiteľ</option>
+                  <option value="owner">Majitel</option>
                   <option value="super_admin">Super Admin</option>
                 </select>
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zrušiť</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zrušit</button>
               <button type="submit" class="btn btn-primary" :disabled="saving">
                 <span v-if="saving" class="spinner-border spinner-border-sm me-1"></span>
-                {{ saving ? 'Ukladám...' : 'Uložiť' }}
+                {{ saving ? 'Ukládám...' : 'Uložit' }}
               </button>
             </div>
           </form>
@@ -179,19 +179,19 @@ const saveUser = async () => {
     await loadUsers()
     closeModal()
   } catch (e: any) {
-    alert(e.message || 'Chyba pri ukladaní')
+    alert(e.message || 'Chyba při ukládání')
   } finally {
     saving.value = false
   }
 }
 
 const deleteUser = async (id: number) => {
-  if (!confirm('Naozaj chcete vymazať tohto používateľa?')) return
+  if (!confirm('Opravdu chcete vymazat tohoto uživatele?')) return
   try {
     await api.del(`/admin/users/${id}`)
     await loadUsers()
   } catch (e: any) {
-    alert(e.message || 'Chyba pri mazaní')
+    alert(e.message || 'Chyba při mazání')
   }
 }
 

@@ -11,7 +11,7 @@
             style="max-width:300px"
           />
           <button type="submit" class="btn btn-primary" :disabled="!newCategoryName.trim() || saving">
-            <i class="bi bi-plus-lg me-1"></i>Pridať kategóriu
+            <i class="bi bi-plus-lg me-1"></i>Přidat kategorii
           </button>
         </form>
       </div>
@@ -52,7 +52,7 @@
         </li>
         <li v-if="categories.length === 0" class="list-group-item text-center text-muted py-4">
           <i class="bi bi-inbox display-6 d-block mb-2"></i>
-          Žiadne kategórie
+          Žádné kategorie
         </li>
       </ul>
     </div>
@@ -124,14 +124,14 @@ const confirmRename = async (cat: PricingCategory) => {
 
 const deleteCategory = async (cat: PricingCategory) => {
   const msg = cat.items_count > 0
-    ? `Odstrániť kategóriu "${cat.name}"? Kategória bude odstránená z ${cat.items_count} položiek.`
-    : `Odstrániť kategóriu "${cat.name}"?`
+    ? `Odstranit kategorii "${cat.name}"? Kategorie bude odstraněna z ${cat.items_count} položiek.`
+    : `Odstranit kategorii "${cat.name}"?`
   if (!confirm(msg)) return
   try {
     await api.del(`/admin/pricing-categories/${cat.id}`)
     categories.value = categories.value.filter(c => c.id !== cat.id)
   } catch (e: any) {
-    alert(e.message || 'Chyba pri mazaní')
+    alert(e.message || 'Chyba při mazání')
   }
 }
 
