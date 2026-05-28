@@ -1,0 +1,206 @@
+// ===== BOOTSTRAP SASS CUSTOMIZATION =====
+// Všetky Bootstrap premenné sa musia nastaviť PRED importom
+
+// Farby
+$primary: #00b583;
+$secondary: #222;
+
+// Typografia
+$font-family-sans-serif: 'Inter', system-ui, -apple-system, sans-serif;
+$headings-font-weight: 900;
+
+// Border radius
+$border-radius:    6px;
+$border-radius-sm: 4px;
+$border-radius-lg: 8px;
+$border-radius-xl: 12px;
+
+// Tlačidlá
+$btn-font-weight: 500;
+$btn-padding-y: 0.5rem;
+$btn-padding-x: 0.875rem;
+$btn-padding-y-lg: 1rem;
+$btn-padding-x-lg: 2rem;
+
+// Configuration
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+// ===== CSS GRID UTILITIES =====
+// grid-cols-1 .. grid-cols-12 — rovnomerné stĺpce (používaj spolu s d-grid)
+$grid-cols-values: ();
+@for $i from 1 through 12 {
+  $grid-cols-values: map-merge($grid-cols-values, (#{$i}: repeat(#{$i}, 1fr)));
+}
+
+$utilities: map-merge($utilities, (
+  "grid-template-columns": (
+    property: grid-template-columns,
+    class: grid-cols,
+    values: $grid-cols-values,
+  ),
+));
+
+// ===== CUSTOM PIXEL UTILITIES =====
+// Generuje triedy: w-0px..w-500px, h-, maxw-, maxh-, minw-, minh- (krok 5px)
+$px-sizes: ();
+@for $i from 0 through 100 {
+  $px-sizes: map-merge($px-sizes, (#{$i * 5}px: #{$i * 5}px));
+}
+
+// ===== CUSTOM FONT-SIZE UTILITIES =====
+// Rozširuje Bootstrap fs-1..fs-6 o named varianty: fs-xs, fs-sm, fs-base, fs-md, fs-lg, fs-xl
+$utilities: map-merge($utilities, (
+  "font-size": map-merge(
+    map-get($utilities, "font-size"),
+    (
+      values: map-merge(
+        map-get(map-get($utilities, "font-size"), "values"),
+        (
+          xs:   0.75rem,
+          sm:   0.875rem,
+          base: 1rem,
+          md:   1.5rem,
+          lg:   2.5rem,
+          xl:   3rem,
+          xxl: 4rem,
+        )
+      )
+    )
+  ),
+));
+
+$utilities: map-merge($utilities, (
+  "width-px": (
+    responsive: true,
+    property: width,
+    class: w,
+    values: $px-sizes,
+  ),
+  "height-px": (
+    responsive: true,
+    property: height,
+    class: h,
+    values: $px-sizes,
+  ),
+  "max-width-px": (
+    responsive: true,
+    property: max-width,
+    class: maxw,
+    values: $px-sizes,
+  ),
+  "max-height-px": (
+    responsive: true,
+    property: max-height,
+    class: maxh,
+    values: $px-sizes,
+  ),
+  "min-width-px": (
+    responsive: true,
+    property: min-width,
+    class: minw,
+    values: $px-sizes,
+  ),
+  "min-height-px": (
+    responsive: true,
+    property: min-height,
+    class: minh,
+    values: $px-sizes,
+  ),
+));
+
+// ===== PIXEL SPACING UTILITIES =====
+// Rozširuje Bootstrap mt/mb/ms/me/mx/my/pt/pb/ps/pe/px/py/m/p/gap/row-gap/column-gap o px hodnoty
+$spacing-utility-keys: "margin", "margin-x", "margin-y", "margin-top", "margin-end", "margin-bottom", "margin-start",
+                        "padding", "padding-x", "padding-y", "padding-top", "padding-end", "padding-bottom", "padding-start",
+                        "gap", "row-gap", "column-gap";
+
+@each $key in $spacing-utility-keys {
+  $utility: map-get($utilities, $key);
+  @if $utility {
+    $utilities: map-merge($utilities, (
+      $key: map-merge(
+        $utility,
+        (values: map-merge(map-get($utility, "values"), $px-sizes))
+      )
+    ));
+  }
+}
+
+// ===== FONT WEIGHT UTILITIES =====
+$utilities: map-merge($utilities, (
+  "font-weight": map-merge(
+    map-get($utilities, "font-weight"),
+    (values: map-merge(
+      map-get(map-get($utilities, "font-weight"), "values"),
+      ("black": 900)
+    ))
+  ),
+));
+
+// ===== TEXT COLOR + HOVER UTILITIES =====
+// Pridáva text-base (farba body textu) a text-{color}-hover varianty pre všetky farby
+$utilities: map-merge($utilities, (
+  "color": map-merge(
+    map-get($utilities, "color"),
+    (
+      state: hover,
+      values: map-merge(
+        map-get(map-get($utilities, "color"), "values"),
+        ("base": $body-color)
+      )
+    )
+  ),
+));
+
+// ===== TEXT DECORATION HOVER UTILITIES =====
+// Generuje text-decoration-{value}-hover varianty: text-decoration-underline-hover, text-decoration-none-hover atď.
+$utilities: map-merge($utilities, (
+  "text-decoration": map-merge(
+    map-get($utilities, "text-decoration"),
+    (state: hover)
+  ),
+));
+
+// Layout & components
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/tables";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/dropdown";
+@import "bootstrap/scss/button-group";
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/navbar";
+@import "bootstrap/scss/card";
+@import "bootstrap/scss/accordion";
+@import "bootstrap/scss/breadcrumb";
+@import "bootstrap/scss/pagination";
+@import "bootstrap/scss/badge";
+@import "bootstrap/scss/alert";
+@import "bootstrap/scss/progress";
+@import "bootstrap/scss/list-group";
+@import "bootstrap/scss/close";
+@import "bootstrap/scss/toasts";
+@import "bootstrap/scss/modal";
+@import "bootstrap/scss/tooltip";
+@import "bootstrap/scss/popover";
+@import "bootstrap/scss/carousel";
+@import "bootstrap/scss/spinners";
+@import "bootstrap/scss/offcanvas";
+@import "bootstrap/scss/placeholders";
+
+// Helpers
+@import "bootstrap/scss/helpers";
+
+// Utilities API — generuje všetky utility triedy vrátane custom
+@import "bootstrap/scss/utilities/api";
