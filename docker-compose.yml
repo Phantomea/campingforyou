@@ -27,6 +27,9 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    networks:
+      - coolify
+      - default
     labels:
       - traefik.http.services.campingforyou-backend.loadbalancer.server.port=8000
       - traefik.docker.network=coolify
@@ -99,6 +102,9 @@ services:
     restart: unless-stopped
     depends_on:
       - backend
+    networks:
+      - coolify
+      - default
     labels:
       - traefik.http.services.campingforyou-frontend.loadbalancer.server.port=3000
       - traefik.docker.network=coolify
@@ -109,3 +115,8 @@ services:
 
 volumes:
   db_data:
+
+networks:
+  coolify:
+    external: true
+  default:
