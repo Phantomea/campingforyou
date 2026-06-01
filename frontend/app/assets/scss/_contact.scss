@@ -1,0 +1,22 @@
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+  i {
+    font-size: 1.25rem;
+    color: var(--bs-primary);
+    margin-top: 0.25rem;
+  }
+}
+
+.opening-hours {
+  dt {
+    font-weight: 600;
+  }
+
+  dd {
+    margin-bottom: 0.5rem;
+  }
+}

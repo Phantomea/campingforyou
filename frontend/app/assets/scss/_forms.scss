@@ -1,0 +1,9 @@
+.form-label {
+  &:has(+ input[required],
+        + select[required],
+        + textarea[required])::after,
+  &.required::after {
+    content: ' *';
+    color: #dc3545;
+  }
+}

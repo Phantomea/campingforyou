@@ -1,0 +1,31 @@
+.section {
+  padding: 5rem 0;
+}
+
+.section-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.section-title-line {
+  display: block;
+  width: 3.5rem;
+  height: 3px;
+  background-color: var(--bs-primary);
+  margin: 0 auto 2.5rem auto;
+
+  &.start {
+    margin-left: 0;
+    margin-right: auto;
+  }
+}
+
+.section-subtitle {
+  color: var(--bs-secondary-color);
+  font-size: 1rem;
+  margin-bottom: 0;
+}

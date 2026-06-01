@@ -1,0 +1,50 @@
+.service-card {
+  border: none;
+  border-radius: 0;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border-bottom: 3px solid transparent;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    border-bottom-color: var(--bs-primary);
+  }
+
+  .service-icon {
+    width: 3.25rem;
+    height: 3.25rem;
+    background-color: rgba(139, 26, 26, 0.08);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+
+    i {
+      font-size: 1.375rem;
+      color: var(--bs-primary);
+    }
+  }
+
+  .card-title {
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .btn-link-arrow {
+    color: var(--bs-primary);
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: gap 0.2s;
+
+    &:hover {
+      gap: 0.65rem;
+    }
+  }
+}

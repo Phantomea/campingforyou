@@ -1,0 +1,32 @@
+.cta-phone {
+  background-color: var(--bs-secondary);
+  color: #fff;
+  padding: 4rem 0;
+
+  .cta-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+  }
+
+  .cta-phone-number {
+    font-size: clamp(1.75rem, 4vw, 3rem);
+    font-weight: 800;
+    color: #fff;
+    text-decoration: none;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+}
+
+.cta-banner {
+  background-color: var(--bs-secondary);
+  color: #fff;
+  padding: 5rem 0;
+}

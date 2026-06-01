@@ -1,0 +1,27 @@
+.btn-outline-light {
+  &:hover {
+    color: #333 !important;
+  }
+}
+
+.btn-accent {
+  background-color: var(--bs-warning);
+  border-color: var(--bs-warning);
+  color: #fff;
+
+  &:hover {
+    background-color: #b8943d;
+    border-color: #b8943d;
+    color: #fff;
+  }
+}
+
+.btn-primary {
+  &,
+  &:focus,
+  &:active,
+  &.active,
+  &:focus-visible {
+    color: #fff !important;
+  }
+}

@@ -1,0 +1,21 @@
+.perex {
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+.caravan-card {
+  &--selectable {
+    cursor: pointer;
+  }
+
+  &--selectable:hover,
+  &--selected {
+    border-color: var(--bs-primary) !important;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
+
+  &--selected {
+    box-shadow: 0 0 0 3px rgba(0, 181, 131, 0.2), 0 6px 24px rgba(0, 0, 0, 0.15);
+  }
+}

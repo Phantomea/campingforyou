@@ -1,0 +1,29 @@
+.top-bar {
+  background-color: var(--bs-secondary);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.8125rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+  a {
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--bs-warning);
+    }
+  }
+
+  .top-bar-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-right: 1.25rem;
+
+    i {
+      color: var(--bs-warning);
+      font-size: 0.875rem;
+    }
+  }
+}
