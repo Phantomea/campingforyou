@@ -75,8 +75,8 @@ cd frontend && npm run generate
 
 ## Testovacie účty (po seedovaní)
 
-- Super Admin: `admin@campingforyou.sk` / `password`
-- Owner: `info@campingforyou.sk` / `password`
+- Super Admin: `admin@campingforyou.cz` / `password`
+- Owner: `info@campingforyou.cz` / `password`
 
 ## API Endpointy
 
