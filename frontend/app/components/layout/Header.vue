@@ -1,6 +1,6 @@
 <template>
   <!-- Main Navigation -->
-  <nav class="main-navbar navbar navbar-expand-lg fixed-top" :class="{ scrolled }">
+  <nav class="main-navbar navbar navbar-expand-lg fixed-top" :class="{ scrolled: scrolled || !isHome }">
     <div class="container">
       <NuxtLink :to="localePath({ name: 'index' })" class="navbar-brand p-0 me-4">
         <img src="/logo.png" alt="CampingForYou" />
@@ -36,7 +36,7 @@
             <NuxtLink :to="localePath({ name: 'contact' })" class="nav-link">Kontakt</NuxtLink>
           </li>
         </ul>
-        <ul class="navbar-nav align-items-lg-center ms-auto">
+        <ul class="navbar-nav align-items-lg-center ms-xl-auto mt-30px ms-15px mt-xl-0">
           <li class="nav-item">
             <NuxtLink :to="localePath({ name: 'rezervacia' })" class="btn btn-primary px-4">
               <i class="bi bi-calendar-check me-2"></i>Rezervovat
@@ -50,6 +50,12 @@
 
 <script setup lang="ts">
 const localePath = useLocalePath()
+const route = useRoute()
+
+const isHome = computed(() => {
+  const name = route.name?.toString() ?? ''
+  return name === 'index' || name.startsWith('index___')
+})
 
 const scrolled = ref(false)
 

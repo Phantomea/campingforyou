@@ -103,7 +103,7 @@ const daysWord = (n: number) => n === 1 ? 'den' : n < 5 ? 'dny' : 'dní'
 <style scoped>
 .wiz-summary {
   background: #fff; border: 1px solid #e5e5e5; border-radius: 0.75rem;
-  padding: 1.5rem; position: sticky; top: 5rem;
+  padding: 1.5rem; position: sticky; top: 6rem;
 }
 .wiz-summary--empty {
   display: flex; flex-direction: column; align-items: center;

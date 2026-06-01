@@ -236,16 +236,17 @@ const submit = async () => {
   }
 }
 
+definePageMeta({ layout: 'rezervacia' })
 useSeoMeta({ title: 'Rezervace — kontaktní údaje | CampingForYou' })
 </script>
 
 <style scoped>
-.wiz-body { padding: 3rem 0 4rem; background: var(--jg-light, #f8f4ec); min-height: 60vh; }
+.wiz-body { padding: 3rem 0 4rem; min-height: 60vh; }
 .wiz-step-heading { font-size: 1.5rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.25rem; }
 .wiz-nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 
 .wiz-card { background: #fff; border-radius: 0.75rem; border: 1px solid #e5e5e5; overflow: hidden; }
-.wiz-card__head { padding: 0.85rem 1.25rem; background: var(--jg-primary); color: #fff; font-weight: 600; font-size: 0.925rem; }
+.wiz-card__head { padding: 0.85rem 1.25rem; background: var(--bs-primary); color: #fff; font-weight: 600; font-size: 0.925rem; }
 .wiz-card__body { padding: 1.5rem; }
 
 </style>

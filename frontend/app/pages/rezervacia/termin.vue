@@ -11,7 +11,7 @@
             <div class="sel-hint mb-3" :class="selHintClass">
               <template v-if="selectionPhase === 'from'">
                 <i class="bi bi-calendar-event me-2"></i>
-                Klikněte na <strong>datum převzetí</strong> karavanu
+                Klikněte na&nbsp;<strong>datum převzetí</strong>&nbsp;karavanu
               </template>
               <template v-else-if="selectionPhase === 'to'">
                 <i class="bi bi-calendar-check me-2"></i>
@@ -37,7 +37,7 @@
               <span class="sel-badge sel-badge--to" :class="{ 'sel-badge--empty': !dateTo }">
                 <i class="bi bi-box-arrow-left me-1"></i>{{ dateTo ? formatDate(dateTo) : '...' }}
               </span>
-              <span v-if="preview?.total_days" class="sel-days-badge ms-3">
+              <span v-if="preview?.total_days" class="sel-days-badge">
                 {{ preview.total_days }} {{ daysWord(preview.total_days) }}
                 <template v-if="preview.total_price"> · {{ new Intl.NumberFormat('cs-CZ', { maximumFractionDigits: 0 }).format(preview.total_price) }} Kč</template>
               </span>
@@ -189,24 +189,25 @@ const next = () => {
   navigateTo(`/rezervacia/udaje?karavan=${karavanId}&od=${dateFrom.value}&do=${dateTo.value}`)
 }
 
+definePageMeta({ layout: 'rezervacia' })
 useSeoMeta({ title: 'Rezervace — výběr termínu | CampingForYou' })
 </script>
 
 <style scoped>
-.wiz-body { padding: 3rem 0 4rem; background: var(--jg-light, #f8f4ec); min-height: 60vh; }
+.wiz-body { padding: 3rem 0 4rem; min-height: 60vh; }
 .wiz-step-heading { font-size: 1.5rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.25rem; }
 .wiz-nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 
 .sel-hint { display: flex; align-items: center; padding: 0.6rem 1rem; border-radius: 0.5rem; font-size: 0.9rem; font-weight: 500; }
-.sel-hint--from { background: rgba(139,26,26,0.07); color: var(--jg-primary); border: 1px solid rgba(139,26,26,0.2); }
-.sel-hint--to, .sel-hint--done { background: rgba(45,106,79,0.07); color: #2d6a4f; border: 1px solid rgba(45,106,79,0.25); }
+.sel-hint--from { background: rgba(var(--bs-danger-rgb), 0.07); color: var(--bs-danger); border: 1px solid rgba(var(--bs-danger-rgb), 0.2); }
+.sel-hint--to, .sel-hint--done { background: rgba(var(--bs-success-rgb), 0.07); color: var(--bs-success); border: 1px solid rgba(var(--bs-success-rgb), 0.25); }
 .sel-hint__reset { background: none; border: none; cursor: pointer; font-size: 0.8rem; padding: 0 0.25rem; opacity: 0.8; color: inherit; }
 .sel-hint__reset:hover { opacity: 1; }
 
-.sel-range { display: flex; align-items: center; flex-wrap: wrap; gap: 0.25rem; }
+.sel-range { display: flex; align-items: center; flex-wrap: wrap; gap: 0.25rem; row-gap: .5rem }
 .sel-badge { display: inline-flex; align-items: center; padding: 0.3rem 0.75rem; border-radius: 2rem; font-weight: 600; font-size: 0.875rem; white-space: nowrap; }
-.sel-badge--from { background: var(--jg-primary); color: #fff; }
-.sel-badge--to   { background: #2d6a4f; color: #fff; }
+.sel-badge--from { background: var(--bs-danger); color: #fff; }
+.sel-badge--to   { background: var(--bs-success); color: #fff; }
 .sel-badge--empty { background: #e9ecef; color: #888; font-weight: 400; }
 .sel-days-badge { font-size: 0.8rem; font-weight: 600; color: #555; background: #f0f0f0; padding: 0.25rem 0.65rem; border-radius: 2rem; white-space: nowrap; }
 

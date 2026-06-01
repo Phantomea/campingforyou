@@ -478,7 +478,7 @@ const reset = () => {
 }
 .hint-from {
   background: rgba(139, 26, 26, 0.07);
-  color: var(--jg-primary);
+  color: var(--bs-primary);
   border: 1px solid rgba(139, 26, 26, 0.2);
 }
 .hint-to {
@@ -517,7 +517,7 @@ const reset = () => {
   white-space: nowrap;
 }
 .range-badge.from {
-  background-color: var(--jg-primary);
+  background-color: var(--bs-primary);
   color: #fff;
 }
 .range-badge.to {
@@ -570,7 +570,7 @@ const reset = () => {
 }
 
 .addon-service-item--premium.addon-service-item--selected {
-  border-color: var(--jg-primary);
+  border-color: var(--bs-primary);
   background: rgba(139, 26, 26, 0.05);
 }
 
@@ -597,8 +597,8 @@ const reset = () => {
 }
 
 .addon-service-item--premium .addon-checkbox.checked {
-  background: var(--jg-primary);
-  border-color: var(--jg-primary);
+  background: var(--bs-primary);
+  border-color: var(--bs-primary);
 }
 
 .addon-body {
@@ -625,7 +625,7 @@ const reset = () => {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  background: var(--jg-primary);
+  background: var(--bs-primary);
   color: #fff;
   border-radius: 0.25rem;
   padding: 0.1rem 0.35rem;
@@ -654,7 +654,7 @@ const reset = () => {
 
 /* Platobný plán v success stave */
 .success-pp-card { background: #f8f9fa; border-radius: 0.5rem; border: 1px solid #e5e5e5; overflow: hidden; }
-.success-pp-head { padding: 0.6rem 0.9rem; background: var(--jg-primary); color: #fff; font-weight: 600; font-size: 0.8rem; }
+.success-pp-head { padding: 0.6rem 0.9rem; background: var(--bs-primary); color: #fff; font-weight: 600; font-size: 0.8rem; }
 .success-pp-body { padding: 0.75rem 0.9rem; }
 .success-pp-row { display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem; padding: 0.15rem 0; font-size: 0.85rem; }
 .success-pp-lbl { color: #777; flex-shrink: 0; }

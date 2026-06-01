@@ -62,10 +62,10 @@
     </section>
 
     <!-- Why Us -->
-    <section class="section" style="background-color: var(--jg-light)">
+    <section class="section bg-light">
       <div class="container">
-        <div class="row align-items-center g-5">
-          <div class="col-lg-5">
+        <div class="why-us-grid">
+          <div class="why-us-intro">
             <h2 class="section-title text-start">Proč právě my?</h2>
             <span class="section-title-line start"></span>
             <p class="text-muted mb-0">
@@ -73,47 +73,41 @@
               Zakládáme si na poctivém přístupu, čistotě karavanů a spokojenosti každého zákazníka.
             </p>
           </div>
-          <div class="col-lg-7">
-            <div class="row g-0">
-              <div class="col-sm-6">
-                <div class="feature-item pe-4">
-                  <div class="feature-icon">
-                    <i class="bi bi-award-fill"></i>
-                  </div>
-                  <div>
-                    <h5>Moderní karavany</h5>
-                    <p>Pravidelně obnovovaný vozový park s karavany od prémiových výrobců.</p>
-                  </div>
-                </div>
-                <div class="feature-item pe-4">
-                  <div class="feature-icon">
-                    <i class="bi bi-coin"></i>
-                  </div>
-                  <div>
-                    <h5>Férové ceny</h5>
-                    <p>Transparentní ceny bez skrytých poplatků. Vždy víte, za co platíte.</p>
-                  </div>
-                </div>
+          <div class="features-grid">
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="bi bi-award-fill"></i>
               </div>
-              <div class="col-sm-6">
-                <div class="feature-item">
-                  <div class="feature-icon">
-                    <i class="bi bi-patch-check-fill"></i>
-                  </div>
-                  <div>
-                    <h5>Plné vybavení</h5>
-                    <p>Každý karavan je vybaven kuchyní, ložnicí a vším potřebným na cestování.</p>
-                  </div>
-                </div>
-                <div class="feature-item">
-                  <div class="feature-icon">
-                    <i class="bi bi-headset"></i>
-                  </div>
-                  <div>
-                    <h5>Podpora na cestě</h5>
-                    <p>V případě potřeby jsme vám k dispozici kdykoliv během pronájmu.</p>
-                  </div>
-                </div>
+              <div>
+                <h5>Moderní karavany</h5>
+                <p>Pravidelně obnovovaný vozový park s karavany od prémiových výrobců.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="bi bi-patch-check-fill"></i>
+              </div>
+              <div>
+                <h5>Plné vybavení</h5>
+                <p>Každý karavan je vybaven kuchyní, ložnicí a vším potřebným na cestování.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="bi bi-coin"></i>
+              </div>
+              <div>
+                <h5>Férové ceny</h5>
+                <p>Transparentní ceny bez skrytých poplatků. Vždy víte, za co platíte.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="bi bi-headset"></i>
+              </div>
+              <div>
+                <h5>Podpora na cestě</h5>
+                <p>V případě potřeby jsme vám k dispozici kdykoliv během pronájmu.</p>
               </div>
             </div>
           </div>
@@ -126,7 +120,7 @@
       <div class="container text-center">
         <h2 class="fw-bold mb-2">Plánujete dovolenou s karavanem?</h2>
         <p class="mb-4 opacity-75">Kontaktujte nás ještě dnes a dohodněte si termín pronájmu.</p>
-        <NuxtLink :to="localePath({ name: 'contact' })" class="btn btn-light btn-lg px-5 fw-semibold">
+        <NuxtLink :to="localePath({ name: 'contact' })" class="btn btn-primary btn-lg fw-semibold">
           <i class="bi bi-calendar-check me-2"></i>Rezervovat
         </NuxtLink>
       </div>

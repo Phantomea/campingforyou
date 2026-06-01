@@ -31,7 +31,7 @@
                   <tr v-for="item in items" :key="item.id">
                     <td class="fw-medium">{{ item.name }}</td>
                     <td class="text-muted">{{ item.description || '-' }}</td>
-                    <td class="text-end text-primary fw-semibold text-nowrap">
+                    <td class="text-end fw-semibold text-nowrap">
                       <template v-if="item.price_from && item.price_to">
                         {{ item.price_from }} - {{ item.price_to }} Kč
                       </template>
@@ -55,10 +55,10 @@
         </div>
 
         <div class="card bg-light border-0 mt-5">
-          <div class="card-body text-center py-4">
+          <div class="card-body text-center" style="padding-top: 4rem; padding-bottom: 4rem;">
             <h4 class="mb-2">Potřebujete přesnější cenovou nabídku?</h4>
             <p class="text-muted mb-3">Kontaktujte nás s termínem a počtem dní pronájmu.</p>
-            <NuxtLink :to="localePath({ name: 'contact' })" class="btn btn-primary">
+            <NuxtLink :to="localePath({ name: 'contact' })" class="btn btn-primary btn-lg mt-15px">
               <i class="bi bi-envelope me-2"></i>
               Kontaktujte nás
             </NuxtLink>

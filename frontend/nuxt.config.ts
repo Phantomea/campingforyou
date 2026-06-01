@@ -53,6 +53,5 @@ export default defineNuxtConfig({
   css: [
     '@/assets/scss/bootstrap.scss',
     'bootstrap-icons/font/bootstrap-icons.css',
-    '@/assets/css/main.css',
   ],
 })

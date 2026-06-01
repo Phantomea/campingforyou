@@ -5,6 +5,9 @@
 $primary: #00b583;
 $secondary: #222;
 
+// Inputs
+$input-placeholder-color: #adb5bd;
+
 // Typografia
 $font-family-sans-serif: 'Inter', system-ui, -apple-system, sans-serif;
 $headings-font-weight: 900;
@@ -14,6 +17,9 @@ $border-radius:    6px;
 $border-radius-sm: 4px;
 $border-radius-lg: 8px;
 $border-radius-xl: 12px;
+
+// Grid
+$grid-gutter-width: 2rem;
 
 // Tlačidlá
 $btn-font-weight: 500;
@@ -204,3 +210,23 @@ $utilities: map-merge($utilities, (
 
 // Utilities API — generuje všetky utility triedy vrátane custom
 @import "bootstrap/scss/utilities/api";
+
+// ===== CUSTOM PARTIALS =====
+@import "variables";
+@import "forms";
+@import "layout";
+@import "topbar";
+@import "navbar";
+@import "hero";
+@import "buttons";
+@import "sections";
+@import "cards";
+@import "features";
+@import "cta";
+@import "footer";
+@import "page-header";
+@import "pricing";
+@import "contact";
+@import "admin";
+@import "gallery";
+@import "caravan";

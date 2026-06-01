@@ -50,6 +50,21 @@ http:
       service: "campingforyou-mailpit"
       tls: true
 
+    # ─── Adminer (adminer.campingforyou.ddev.site) ──────────────────────────────
+    campingforyou-adminer-http:
+      entrypoints:
+        - http-80
+      rule: "Host(`adminer.campingforyou.ddev.site`)"
+      service: "campingforyou-adminer"
+      tls: false
+
+    campingforyou-adminer-https:
+      entrypoints:
+        - http-443
+      rule: "Host(`adminer.campingforyou.ddev.site`)"
+      service: "campingforyou-adminer"
+      tls: true
+
   services:
     campingforyou:
       loadbalancer:
@@ -65,3 +80,8 @@ http:
       loadbalancer:
         servers:
           - url: "http://ddev-campingforyou-mailpit-1:8025"
+
+    campingforyou-adminer:
+      loadbalancer:
+        servers:
+          - url: "http://ddev-campingforyou-adminer:8080"

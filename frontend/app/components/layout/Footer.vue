@@ -1,5 +1,5 @@
 <template>
-  <footer class="site-footer mt-auto">
+  <footer class="bg-secondary site-footer mt-auto">
     <div class="container">
       <div class="row g-4 g-lg-5">
 

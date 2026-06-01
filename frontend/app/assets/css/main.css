@@ -61,7 +61,8 @@ body {
   transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-.main-navbar.scrolled {
+.main-navbar.scrolled,
+.main-navbar:has(.navbar-collapse.show) {
   background-color: rgba(0, 0, 0, 0.92);
   box-shadow: 0 2px 12px rgba(0,0,0,0.35);
   backdrop-filter: blur(6px);
@@ -124,7 +125,8 @@ body {
 
 /* ===== HERO SECTION ===== */
 .hero {
-  min-height: 100vh;
+  height: auto;
+  padding-top: 200px;
   margin-top: calc(-1 * var(--navbar-height));
   background: linear-gradient(
     to bottom,
@@ -137,7 +139,21 @@ body {
   display: flex;
   align-items: center;
   color: #fff;
-  padding: 5rem 0;
+  padding-bottom: 5rem;
+}
+
+@media (max-width: 767.98px) {
+  .hero .btn {
+    display: block;
+    width: 100%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .hero {
+    min-height: 100vh;
+    padding-top: 0;
+  }
 }
 
 .hero-eyebrow {
@@ -161,7 +177,11 @@ body {
   margin-bottom: 1.25rem;
 }
 
-
+@media (max-width: 767.98px) {
+  .hero h1 {
+    font-size: 35px;
+  }
+}
 
 .btn-outline-light:hover {
   color: #333 !important;

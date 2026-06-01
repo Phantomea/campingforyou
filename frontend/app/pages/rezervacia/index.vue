@@ -2,7 +2,7 @@
   <div>
     <WizardSteps :current="1" />
 
-    <section class="pt-5 pb-5" style="background:var(--jg-light,#f8f4ec);min-height:60vh">
+    <section class="pt-5 pb-5" style="min-height:60vh">
       <div class="container">
         <h2 class="fs-4 fw-bold text-dark mb-1">Vyberte karavan</h2>
         <ClientOnly>
@@ -37,6 +37,8 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ layout: 'rezervacia' })
+
 interface Service {
   id: number; title: string; slug: string; description: string
   manufacturer?: string; capacity?: number; year?: number

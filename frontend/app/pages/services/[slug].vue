@@ -30,7 +30,7 @@
                   </div>
                   <div v-if="service.price_formatted" class="col-sm-6 col-md-3">
                     <div class="text-muted small">Cena za den</div>
-                    <div class="fw-semibold h5 mb-0" style="color: var(--jg-primary)">{{ service.price_formatted }} Kč</div>
+                    <div class="fw-semibold h5 mb-0" style="color: var(--bs-primary)">{{ service.price_formatted }} Kč</div>
                   </div>
                 </div>
               </div>
@@ -40,7 +40,7 @@
             <div class="card">
               <div class="card-header bg-white py-3">
                 <h5 class="mb-0 fw-bold">
-                  <i class="bi bi-calendar-check me-2" style="color: var(--jg-primary)"></i>
+                  <i class="bi bi-calendar-check me-2" style="color: var(--bs-primary)"></i>
                   Rezervace karavanu
                 </h5>
               </div>
@@ -56,7 +56,7 @@
             <div class="card mb-3">
               <div class="card-body">
                 <h5 class="card-title fw-bold">
-                  <i class="bi bi-question-circle me-2" style="color: var(--jg-primary)"></i>
+                  <i class="bi bi-question-circle me-2" style="color: var(--bs-primary)"></i>
                   Potřebujete pomoc?
                 </h5>
                 <p class="card-text text-muted small">
@@ -79,7 +79,7 @@
         </div>
 
         <div v-else class="text-center py-5">
-          <div class="spinner-border" role="status" style="color: var(--jg-primary)">
+          <div class="spinner-border" role="status" style="color: var(--bs-primary)">
             <span class="visually-hidden">Načítání...</span>
           </div>
         </div>
@@ -163,5 +163,5 @@ useHead({
 .service-description :deep(p) { margin-bottom: 0.5rem; }
 .service-description :deep(ul),
 .service-description :deep(ol) { padding-left: 1.25rem; margin-bottom: 0.5rem; }
-.service-description :deep(a) { color: var(--jg-primary); }
+.service-description :deep(a) { color: var(--bs-primary); }
 </style>

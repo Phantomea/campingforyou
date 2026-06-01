@@ -392,6 +392,7 @@ onMounted(async () => {
   } catch {}
 })
 
+definePageMeta({ layout: 'rezervacia' })
 useSeoMeta({
   title: 'Stav rezervace | CampingForYou',
   robots: 'noindex',
@@ -400,8 +401,8 @@ useSeoMeta({
 
 <style scoped>
 .status-hero {
-  background: linear-gradient(135deg, var(--jg-primary) 0%, #6b1414 100%);
-  color: #fff;
+  background: transparent;
+  color: var(--bs-body-color);
   padding: 3rem 0 2rem;
 }
 .status-hero-title {
@@ -409,12 +410,12 @@ useSeoMeta({
   font-weight: 800;
   margin-bottom: 0.3rem;
 }
-.status-hero-sub { opacity: 0.8; margin: 0; }
+.status-hero-sub { opacity: 0.6; margin: 0; }
 
 .status-body {
-  background: var(--jg-light, #f8f4ec);
+  background: transparent;
   min-height: 60vh;
-  padding: 3rem 0 4rem;
+  padding: 0 0 4rem;
 }
 .status-wrap { max-width: 900px; margin: 0 auto; }
 
@@ -443,7 +444,7 @@ useSeoMeta({
 }
 .status-card__head {
   padding: 0.85rem 1.25rem;
-  background: var(--jg-primary);
+  background: var(--bs-primary);
   color: #fff;
   font-weight: 600;
   font-size: 0.925rem;
@@ -471,13 +472,13 @@ a:hover .caravan-photo { opacity: 0.9; }
 .detail-split-lbl { padding: 0.35rem 0.5rem 0.35rem 0.75rem; color: #888; font-size: 0.8rem; }
 .detail-split-val { padding: 0.35rem 0; font-size: 0.8rem; color: #555; text-align: right; }
 .detail-split-date { display: block; font-size: 0.72rem; color: #aaa; margin-top: 1px; }
-.detail-link { color: var(--jg-primary); text-decoration: none; }
+.detail-link { color: var(--bs-primary); text-decoration: none; }
 .detail-link:hover { text-decoration: underline; }
 .detail-note { color: #555; font-size: 0.85rem; white-space: pre-line; }
 .detail-section-row { background: #f7f7f7; }
 .detail-section-lbl { padding: 0.4rem 0.5rem; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; }
 .detail-total-row { border-top: 2px solid #e5e5e5; }
-.detail-total { font-size: 1.3rem; color: var(--jg-primary); }
+.detail-total { font-size: 1.3rem; color: var(--bs-primary); }
 .detail-time { font-size: 0.8rem; color: #888; margin-left: 0.4rem; }
 
 /* Stavové info */
@@ -505,7 +506,7 @@ a:hover .caravan-photo { opacity: 0.9; }
 .pay-block__amount {
   font-size: 1.6rem;
   font-weight: 800;
-  color: var(--jg-primary);
+  color: var(--bs-primary);
   line-height: 1.1;
   margin-bottom: 0.35rem;
 }
@@ -559,8 +560,8 @@ a:hover .caravan-photo { opacity: 0.9; }
   transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 .qr-tab--active {
-  background: var(--jg-primary);
+  background: var(--bs-primary);
   color: #fff;
-  border-color: var(--jg-primary);
+  border-color: var(--bs-primary);
 }
 </style>

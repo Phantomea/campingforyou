@@ -222,7 +222,7 @@ const selectDay = (day: number) => {
   padding: 0;
 }
 
-.cal-nav:hover:not(:disabled) { border-color: var(--jg-primary); color: var(--jg-primary); }
+.cal-nav:hover:not(:disabled) { border-color: var(--bs-primary); color: var(--bs-primary); }
 .cal-nav:disabled { opacity: 0.35; cursor: not-allowed; }
 
 .cal-grid {
@@ -261,20 +261,20 @@ const selectDay = (day: number) => {
 }
 
 .cal-day:hover:not(:disabled):not(.is-range-start):not(.is-range-end):not(.is-blocked) {
-  border-color: var(--jg-primary);
-  color: var(--jg-primary);
+  border-color: var(--bs-primary);
+  color: var(--bs-primary);
   background: rgba(139, 26, 26, 0.05);
 }
 
 .cal-day.is-today:not(.is-range-start):not(.is-range-end) {
   border-color: #dee2e6;
   font-weight: 700;
-  color: var(--jg-primary);
+  color: var(--bs-primary);
 }
 
 .cal-day.is-range-start {
-  background-color: var(--jg-primary);
-  border-color: var(--jg-primary);
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
   border-radius: 0.375rem 0 0 0.375rem;
   color: #fff;
   font-weight: 700;
@@ -289,7 +289,7 @@ const selectDay = (day: number) => {
 }
 
 .cal-day.is-in-range {
-  background-color: rgba(139, 26, 26, 0.1);
+  background-color: #2f6b5026;
   border-color: transparent;
   border-radius: 0;
   color: #333;
@@ -347,7 +347,7 @@ const selectDay = (day: number) => {
 }
 
 .legend-dot.blocked    { background-color: #ffd0d0; border: 1px solid #dc3545; }
-.legend-dot.range-start { background-color: var(--jg-primary); }
+.legend-dot.range-start { background-color: var(--bs-primary); }
 .legend-dot.range-end   { background-color: #2d6a4f; }
 .legend-dot.in-range    { background-color: rgba(139, 26, 26, 0.15); border: 1px solid rgba(139,26,26,0.3); }
 </style>

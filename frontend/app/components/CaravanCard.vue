@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white position-relative h-100 d-flex flex-column"
+    class="bg-white position-relative h-100 d-flex flex-column rounded border"
     :class="{ 'caravan-card--selected': selected, 'caravan-card--selectable': selectable }"
     style="transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;"
     v-bind="selectable ? { role: 'button', tabindex: '0' } : {}"

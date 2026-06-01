@@ -9,6 +9,7 @@ database:
 nodejs_version: "22"
 additional_fqdns:
   - frontend.campingforyou.ddev.site
+  - adminer.campingforyou.ddev.site
 
 web_environment:
   - DB_DATABASE=db

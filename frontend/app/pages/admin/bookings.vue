@@ -21,7 +21,7 @@
       <div class="col-sm-4">
         <div class="card text-center border-0 bg-primary bg-opacity-10">
           <div class="card-body py-3">
-            <div class="h3 fw-bold mb-0" style="color: var(--jg-primary)">{{ stats.today }}</div>
+            <div class="h3 fw-bold mb-0" style="color: var(--bs-primary)">{{ stats.today }}</div>
             <div class="small text-muted">Právě probíhá</div>
           </div>
         </div>
@@ -94,7 +94,7 @@
               <td class="small">{{ booking.service?.title }}</td>
               <td class="small">
                 <div v-if="booking.total_days">{{ booking.total_days }} dní</div>
-                <div v-if="booking.total_price" class="fw-semibold" style="color: var(--jg-primary)">{{ booking.total_price }} Kč</div>
+                <div v-if="booking.total_price" class="fw-semibold" style="color: var(--bs-primary)">{{ booking.total_price }} Kč</div>
               </td>
               <td>
                 <span :class="['badge', statusClass(booking.status)]">

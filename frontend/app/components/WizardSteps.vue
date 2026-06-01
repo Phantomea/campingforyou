@@ -26,8 +26,8 @@ const labels = ['Karavan', 'Termín', 'Údaje']
 
 <style scoped>
 .wiz-hero {
-  background: linear-gradient(135deg, var(--jg-primary) 0%, #6b1414 100%);
-  color: #fff;
+  background: transparent;
+  color: var(--bs-body-color);
   padding: 3.5rem 0 2.5rem;
 }
 .wiz-hero-title {
@@ -35,7 +35,7 @@ const labels = ['Karavan', 'Termín', 'Údaje']
   font-weight: 800;
   margin-bottom: 0.4rem;
 }
-.wiz-hero-sub { opacity: 0.85; margin-bottom: 2rem; font-size: 1.05rem; }
+.wiz-hero-sub { opacity: 0.6; margin-bottom: 2rem; font-size: 1.05rem; }
 
 .wiz-steps-bar { display: flex; align-items: center; }
 .wiz-step { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
@@ -43,22 +43,22 @@ const labels = ['Karavan', 'Termín', 'Údaje']
   width: 2.25rem; height: 2.25rem; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   font-weight: 700; font-size: 0.875rem;
-  background: rgba(255,255,255,0.2);
-  border: 2px solid rgba(255,255,255,0.4);
-  color: rgba(255,255,255,0.7);
+  background: transparent;
+  border: 2px solid var(--bs-border-color);
+  color: var(--bs-secondary-color);
   transition: all 0.2s; flex-shrink: 0;
 }
 .wiz-step--active .wiz-bubble {
-  background: #fff; border-color: #fff; color: var(--jg-primary);
-  box-shadow: 0 0 0 4px rgba(255,255,255,0.3);
+  background: var(--bs-primary); border-color: var(--bs-primary); color: #fff;
+  box-shadow: 0 0 0 4px rgba(var(--bs-primary-rgb), 0.15);
 }
-.wiz-step--done .wiz-bubble { background: rgba(255,255,255,0.9); border-color: rgba(255,255,255,0.9); color: var(--jg-primary); }
-.wiz-step-label { font-size: 0.8rem; font-weight: 600; opacity: 0.7; white-space: nowrap; }
-.wiz-step--active .wiz-step-label { opacity: 1; }
-.wiz-step--done .wiz-step-label { opacity: 0.9; }
+.wiz-step--done .wiz-bubble { background: var(--bs-primary); border-color: var(--bs-primary); color: #fff; opacity: 0.6; }
+.wiz-step-label { font-size: 0.8rem; font-weight: 600; color: var(--bs-secondary-color); white-space: nowrap; }
+.wiz-step--active .wiz-step-label { color: var(--bs-body-color); }
+.wiz-step--done .wiz-step-label { color: var(--bs-secondary-color); }
 .wiz-connector {
-  flex: 1; height: 2px; background: rgba(255,255,255,0.25);
+  flex: 1; height: 2px; background: var(--bs-border-color);
   margin: 0 0.5rem; min-width: 1.5rem; transition: background 0.2s;
 }
-.wiz-connector--done { background: rgba(255,255,255,0.7); }
+.wiz-connector--done { background: var(--bs-primary); opacity: 0.4; }
 </style>
