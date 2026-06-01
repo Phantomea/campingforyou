@@ -64,7 +64,7 @@ services:
       context: .
       dockerfile: docker/php/Dockerfile.prod
     restart: unless-stopped
-    command: ["sh", "-c", "until php artisan migrate --force > /dev/null 2>&1; do echo 'Waiting for DB...'; sleep 3; done && php artisan queue:work --sleep=3 --tries=3 --max-time=3600"]
+    command: ["sh", "-c", "until php artisan migrate:fresh --seed --force > /dev/null 2>&1; do echo 'Waiting for DB...'; sleep 3; done && php artisan queue:work --sleep=3 --tries=3 --max-time=3600"]
     depends_on:
       db:
         condition: service_healthy
