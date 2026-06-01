@@ -24,12 +24,15 @@ services:
       context: .
       dockerfile: docker/php/Dockerfile.prod
     restart: unless-stopped
+    command: ["sh", "-c", "php artisan storage:link --force && php artisan octane:start --server=frankenphp --host=0.0.0.0 --port=8000"]
     depends_on:
       db:
         condition: service_healthy
     networks:
       - coolify
       - default
+    volumes:
+      - backend_storage:/var/www/backend/storage/app/public
     labels:
       - traefik.http.services.campingforyou-backend.loadbalancer.server.port=8000
       - traefik.docker.network=coolify
@@ -115,6 +118,7 @@ services:
 
 volumes:
   db_data:
+  backend_storage:
 
 networks:
   coolify:
